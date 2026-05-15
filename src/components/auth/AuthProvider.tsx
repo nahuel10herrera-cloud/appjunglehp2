@@ -29,7 +29,6 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         if (docSnap.exists()) {
           setProfile(docSnap.data() as UserProfile);
         } else {
-          // Si es nuevo, creamos un perfil básico
           const newProfile = {
             uid: firebaseUser.uid,
             email: firebaseUser.email,
@@ -47,16 +46,11 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     });
   }, []);
 
-  const value = {
-    user,
-    profile,
-    loading,
-    signIn: async () => { await signIn(); }
-  };
-
+  const value = { user, profile, loading, signIn: async () => { await signIn(); } };
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 }
 
+// ESTO ES LO QUE FALTA O ESTÁ DANDO ERROR:
 export function useAuth() {
   const context = useContext(AuthContext);
   if (context === undefined) throw new Error('useAuth must be used within AuthProvider');
