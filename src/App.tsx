@@ -1,5 +1,5 @@
 import React from 'react';
-import { AuthProvider, useAuth } from '@/src/components/auth/AuthGuard';
+import { AuthProvider, useAuth } from '@/src/components/auth/AuthProvider';
 import Shell from '@/src/components/layout/Shell';
 import AthleteView from '@/src/components/views/AthleteView';
 import CoachView from '@/src/components/views/CoachView';
