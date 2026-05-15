@@ -1,0 +1,152 @@
+// Deployment Timestamp: 2026-05-13T14:38:20Z
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    // 0. Global Safety Net
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // --- Helpers ---
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isVerified() {
+      // Standard for many apps, but let's keep it simple if Gmail is trusted
+      return isSignedIn() && request.auth.token.email_verified == true;
+    }
+
+    function isOwner(userId) {
+      return isSignedIn() && request.auth.uid == userId;
+    }
+
+    function isCoach() {
+      return isSignedIn() && 
+        (get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'coach' ||
+         request.auth.token.email == 'nahuel10herrera@gmail.com');
+    }
+
+    function isAthlete() {
+      return isSignedIn() && 
+        exists(/databases/$(database)/documents/users/$(request.auth.uid)) &&
+        get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'athlete';
+    }
+
+    function isValidId(id) {
+      return id is string && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\-]+$');
+    }
+
+    // Validation helpers
+    function isValidUser(data) {
+      return data.displayName is string && data.displayName.size() <= 100
+        && data.role in ['coach', 'athlete']
+        && (data.photoURL == null || (data.photoURL is string && data.photoURL.size() <= 500));
+    }
+
+    function isValidWod(data) {
+      return data.title is string && data.title.size() <= 200
+        && data.description is string && data.description.size() <= 5000
+        && data.date is string && data.date.size() <= 20;
+    }
+
+    function isValidWellness(data) {
+      return data.athleteId is string && data.athleteId.size() <= 128
+        && data.date is string && data.date.size() <= 20
+        && data.sleepQuality is number && data.sleepQuality >= 0 && data.sleepQuality <= 5
+        && data.stressLevel is number && data.stressLevel >= 0 && data.stressLevel <= 5
+        && data.nutrition is number && data.nutrition >= 0 && data.nutrition <= 5;
+    }
+
+    function isValidSession(data) {
+      return data.athleteId is string && data.athleteId.size() <= 128
+        && data.wodId is string && data.wodId.size() <= 128
+        && data.score is string && data.score.size() <= 100
+        && data.modality in ['Rx', 'Scaled']
+        && data.rpe is number && data.rpe >= 0 && data.rpe <= 10;
+    }
+
+    function isValidFeedback(data) {
+      return data.coachId is string && data.coachId.size() <= 128
+        && data.athleteId is string && data.athleteId.size() <= 128
+        && data.content is string && data.content.size() <= 1000
+        && (data.targetType == null || data.targetType in ['wellness', 'session', 'direct']);
+    }
+
+    function isValidBenchmark(data) {
+      return data.athleteId is string && data.athleteId.size() <= 128
+        && data.exercise is string && data.exercise.size() <= 100
+        && data.value is string && data.value.size() <= 50
+        && data.date is string && data.date.size() <= 20
+        && (!('description' in data) || (data.description is string && data.description.size() <= 500));
+    }
+
+    // --- Collection Matches ---
+
+    match /users/{userId} {
+      allow get: if isSignedIn() && isValidId(userId);
+      allow list: if isSignedIn();
+      
+      allow create: if isOwner(userId) && isValidId(userId) && isValidUser(request.resource.data)
+        && request.resource.data.keys().hasAll(['uid', 'displayName', 'role', 'createdAt'])
+        && request.resource.data.keys().size() <= 8;
+        
+      allow update: if (isOwner(userId) && isValidUser(request.resource.data)
+        && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['displayName', 'photoURL', 'updatedAt'])
+        && request.resource.data.role == resource.data.role)
+        || (isCoach() && isValidUser(request.resource.data)
+        && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['role', 'updatedAt']));
+
+      allow delete: if isCoach();
+    }
+
+    match /wods/{wodId} {
+      allow read: if isSignedIn() && isValidId(wodId);
+      allow create: if isCoach() && isValidWod(request.resource.data);
+      allow update: if isCoach() && resource.data.coachId == request.auth.uid && isValidWod(request.resource.data);
+      allow delete: if isCoach() && resource.data.coachId == request.auth.uid;
+    }
+
+    match /wellness_logs/{entryId} {
+      allow read: if isSignedIn() && (resource.data.athleteId == request.auth.uid || isCoach());
+      
+      allow create: if isOwner(request.resource.data.athleteId) && isValidWellness(request.resource.data);
+      allow delete: if isOwner(resource.data.athleteId);
+    }
+
+    match /workout_results/{sessionId} {
+      allow read: if isSignedIn();
+      
+      allow create: if isOwner(request.resource.data.athleteId) && isValidSession(request.resource.data);
+      allow update: if isOwner(resource.data.athleteId) 
+        && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['score', 'modality', 'rpe', 'sensations', 'date', 'notes', 'updatedAt'])
+        && isValidSession(request.resource.data);
+      allow delete: if isOwner(resource.data.athleteId);
+    }
+
+    match /coach_feedback/{feedbackId} {
+      allow read: if isSignedIn() && (isCoach() || resource.data.athleteId == request.auth.uid);
+      
+      allow create: if isCoach() 
+        && request.resource.data.coachId == request.auth.uid 
+        && isValidFeedback(request.resource.data);
+        
+      allow update: if isCoach() 
+        && resource.data.coachId == request.auth.uid 
+        && isValidFeedback(request.resource.data)
+        && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['content', 'updatedAt']);
+        
+      allow delete: if isCoach() && resource.data.coachId == request.auth.uid;
+    }
+
+    match /benchmarks/{benchmarkId} {
+      allow read: if isSignedIn() && (isCoach() || resource.data.athleteId == request.auth.uid);
+      allow create: if isSignedIn() && (isCoach() || request.resource.data.athleteId == request.auth.uid) 
+        && isValidBenchmark(request.resource.data);
+      allow update: if isSignedIn() && (isCoach() || resource.data.athleteId == request.auth.uid)
+        && isValidBenchmark(request.resource.data);
+      allow delete: if isSignedIn() && (isCoach() || resource.data.athleteId == request.auth.uid);
+    }
+  }
+}

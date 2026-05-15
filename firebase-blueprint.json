@@ -1,0 +1,122 @@
+{
+  "entities": {
+    "User": {
+      "title": "User",
+      "description": "User profile document",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string" },
+        "displayName": { "type": "string" },
+        "role": { "type": "string", "enum": ["coach", "athlete"] },
+        "photoURL": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["uid", "displayName", "role", "createdAt"]
+    },
+    "WellnessLog": {
+      "title": "Wellness Log",
+      "description": "Daily wellness report from athlete",
+      "type": "object",
+      "properties": {
+        "athleteId": { "type": "string" },
+        "date": { "type": "string" },
+        "sleepQuality": { "type": "integer", "minimum": 1, "maximum": 5 },
+        "stressLevel": { "type": "integer", "minimum": 1, "maximum": 5 },
+        "nutrition": { "type": "integer", "minimum": 1, "maximum": 5 },
+        "notes": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["athleteId", "date", "sleepQuality", "stressLevel", "nutrition"]
+    },
+    "Wod": {
+      "title": "WOD",
+      "description": "Workout of the Day programming",
+      "type": "object",
+      "properties": {
+        "title": { "type": "string" },
+        "description": { "type": "string" },
+        "date": { "type": "string" },
+        "coachId": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["title", "description", "date"]
+    },
+    "WorkoutResult": {
+      "title": "Workout Result",
+      "description": "Athlete performance on a specific WOD",
+      "type": "object",
+      "properties": {
+        "athleteId": { "type": "string" },
+        "wodId": { "type": "string" },
+        "date": { "type": "string" },
+        "score": { "type": "string" },
+        "rpe": { "type": "integer", "minimum": 1, "maximum": 10 },
+        "sensations": {
+          "type": "object",
+          "properties": {
+            "muscularPain": { "type": "boolean" },
+            "jointPain": { "type": "boolean" },
+            "fatigue": { "type": "boolean" },
+            "notes": { "type": "string" }
+          }
+        },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["athleteId", "wodId", "date", "score", "rpe"]
+    },
+    "CoachFeedback": {
+      "title": "Coach Feedback",
+      "description": "Direct communication from coach to athlete",
+      "type": "object",
+      "properties": {
+        "coachId": { "type": "string" },
+        "athleteId": { "type": "string" },
+        "content": { "type": "string" },
+        "targetId": { "type": "string" },
+        "targetType": { "type": "string", "enum": ["wellness", "session", "direct"] },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["coachId", "athleteId", "content", "createdAt"]
+    },
+    "Benchmark": {
+      "title": "Benchmark",
+      "description": "Athlete performance record for specific exercises",
+      "type": "object",
+      "properties": {
+        "athleteId": { "type": "string" },
+        "exercise": { "type": "string" },
+        "value": { "type": "string" },
+        "description": { "type": "string" },
+        "date": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["athleteId", "exercise", "value", "date"]
+    }
+  },
+  "firestore": {
+    "users/{userId}": {
+      "schema": "User",
+      "description": "User profiles"
+    },
+    "wellness_logs/{logId}": {
+      "schema": "WellnessLog",
+      "description": "Daily wellness entries"
+    },
+    "wods/{wodId}": {
+      "schema": "Wod",
+      "description": "Workout programming"
+    },
+    "workout_results/{resultId}": {
+      "schema": "WorkoutResult",
+      "description": "Athlete workout performance scores"
+    },
+    "coach_feedback/{feedbackId}": {
+      "schema": "CoachFeedback",
+      "description": "Direct feedback from coach to athlete"
+    },
+    "benchmarks/{benchmarkId}": {
+      "schema": "Benchmark",
+      "description": "Athlete's personal records"
+    }
+  }
+}

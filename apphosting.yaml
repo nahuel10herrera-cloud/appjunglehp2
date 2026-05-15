@@ -1,0 +1,11 @@
+kind: "AppStack"
+schemaVersion: "v1"
+buildConfig:
+  rootDirectory: "."
+  runtime: "nodejs20"
+  installCommand: "npm install"
+  buildCommand: "npm run build"
+runConfig:
+  concurrency: 80
+  cpu: 1
+  memoryMiB: 512
