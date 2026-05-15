@@ -19,11 +19,12 @@ export default defineConfig(({mode}) => {
       hmr: process.env.DISABLE_HMR !== 'true',
       watch: process.env.DISABLE_HMR === 'true' ? null : {},
     },
-    // ESTA ES LA PARTE NUEVA PARA GOOGLE CLOUD:
+    // CONFIGURACIÓN PARA GOOGLE CLOUD Y FIREBASE:
     preview: {
       port: 8080,
       host: true,
       strictPort: true,
+      allowedHosts: true, // Esto soluciona el error de "Blocked request"
     },
   };
 });
