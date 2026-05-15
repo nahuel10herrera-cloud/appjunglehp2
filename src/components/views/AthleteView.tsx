@@ -641,7 +641,7 @@ export default function AthleteView({ activeTab = 'home' }: AthleteViewProps) {
                 {/* WOD de Hoy - Destacada */}
                 <div className="space-y-3">
                   {todayWods.length > 0 ? (
-                    todayWods.slice(0, 1).map((wod) => (
+                    todayWods.map((wod) => (
                       <motion.div
                         key={wod.id}
                         whileHover={{ scale: 1.01 }}
