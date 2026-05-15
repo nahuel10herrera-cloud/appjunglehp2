@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useAuth } from '@/src/components/auth/AuthGuard';
+import { useAuth } from '@/src/components/auth/AuthProvider';
 import { db } from '@/src/lib/firebase';
 import { collection, query, where, orderBy, limit, onSnapshot, addDoc, serverTimestamp, doc, getDoc, updateDoc, setDoc } from 'firebase/firestore';
 import { WellnessEntry, Wod, WorkoutSession, CoachFeedback, UserProfile, Benchmark } from '@/src/types';
