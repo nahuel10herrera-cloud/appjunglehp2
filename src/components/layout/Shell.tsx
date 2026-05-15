@@ -1,5 +1,5 @@
 import React from 'react';
-import { useAuth } from '@/src/components/auth/AuthGuard';
+import { useAuth } from '../auth/AuthProvider';
 import { logOut } from '@/src/lib/firebase';
 import { Trophy, Dumbbell, ClipboardList, TrendingUp, LogOut, LayoutDashboard, Calendar, Activity, Users } from 'lucide-react';
 import { cn } from '@/src/lib/utils';
