@@ -6,6 +6,7 @@ import {defineConfig, loadEnv} from 'vite';
 export default defineConfig(({mode}) => {
   const env = loadEnv(mode, '.', '');
   return {
+    base: './',
     plugins: [react(), tailwindcss()],
     define: {
       'process.env.GEMINI_API_KEY': JSON.stringify(env.GEMINI_API_KEY),
@@ -19,12 +20,15 @@ export default defineConfig(({mode}) => {
       hmr: process.env.DISABLE_HMR !== 'true',
       watch: process.env.DISABLE_HMR === 'true' ? null : {},
     },
-    // CONFIGURACIÓN PARA GOOGLE CLOUD Y FIREBASE:
     preview: {
       port: 8080,
       host: true,
       strictPort: true,
-      allowedHosts: true, // Esto soluciona el error de "Blocked request"
+      allowedHosts: true,
+      // ESTO ARREGLA LOS ERRORES ROJOS DE LA CONSOLA:
+      headers: {
+        "Cross-Origin-Opener-Policy": "same-origin-allow-popups",
+      },
     },
   };
 });
