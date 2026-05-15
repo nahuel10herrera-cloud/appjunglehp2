@@ -1,18 +1,42 @@
 import { initializeApp } from 'firebase/app';
-import { getAuth, GoogleAuthProvider, signInWithPopup, signOut, signInAnonymously } from 'firebase/auth';
+import { 
+  getAuth, 
+  GoogleAuthProvider, 
+  signInWithPopup, 
+  signInWithRedirect, 
+  signOut, 
+  signInAnonymously 
+} from 'firebase/auth';
 import { getFirestore } from 'firebase/firestore';
 import firebaseConfig from '@/firebase-applet-config.json';
 
+// Inicialización de Firebase
 const app = initializeApp(firebaseConfig);
 export const auth = getAuth(app);
 export const db = firebaseConfig.firestoreDatabaseId 
   ? getFirestore(app, firebaseConfig.firestoreDatabaseId)
   : getFirestore(app);
+
 export const googleProvider = new GoogleAuthProvider();
 
-export const signIn = () => signInWithPopup(auth, googleProvider);
+/**
+ * Función de Inicio de Sesión Inteligente
+ * Usa Redirect en móviles para evitar errores de bloqueo de popups en WhatsApp/Safari
+ */
+export const signIn = () => {
+  const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+  
+  if (isMobile) {
+    return signInWithRedirect(auth, googleProvider);
+  } else {
+    return signInWithPopup(auth, googleProvider);
+  }
+};
+
 export const signInAnon = () => signInAnonymously(auth);
 export const logOut = () => signOut(auth);
+
+// --- Manejo de Errores de Firestore ---
 
 export enum OperationType {
   CREATE = 'create',
