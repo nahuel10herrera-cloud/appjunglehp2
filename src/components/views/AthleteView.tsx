@@ -347,20 +347,23 @@ export default function AthleteView({ activeTab = 'home' }: AthleteViewProps) {
       }
 
       const payload = {
-        athleteId: profile.uid,
-        wodId: activeWodForLog.id,
-        date: today,
-        score: fullScore,
-        modality: logData.modality,
-        rpe: logData.rpe,
-        sensations: {
-          muscularPain: logData.muscularPain,
-          jointPain: logData.jointPain,
-          fatigue: logData.fatigue,
-          notes: logData.notes
-        },
-        updatedAt: serverTimestamp()
-      };
+  athleteId: profile.uid,
+  athleteName: profile.displayName || 'Atleta', // 👈 AGREGAR ESTO
+  wodId: activeWodForLog.id,
+  date: today,
+  score: fullScore,
+  // 👇 AGREGAR ESTA LÍNEA (Usa la función que pusimos en utils.ts)
+  scoreValue: parseScoreToNumber(logData.scoreValue, activeWodForLog.type), 
+  modality: logData.modality,
+  rpe: logData.rpe,
+  sensations: {
+    muscularPain: logData.muscularPain,
+    jointPain: logData.jointPain,
+    fatigue: logData.fatigue,
+    notes: logData.notes
+  },
+  updatedAt: serverTimestamp()
+};
 
       if (isEditing) {
         const existingResult = todayResults[activeWodForLog.id!];
