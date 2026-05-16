@@ -6,8 +6,7 @@ import { UserProfile, WellnessEntry, Wod, WorkoutSession, CoachFeedback } from '
 import { handleFirestoreError, OperationType } from '@/src/lib/firebase';
 import { motion, AnimatePresence } from 'motion/react';
 import { Users, Calendar, Plus, MessageSquare, Send, ChevronRight, Search, Activity, History as HistoryIcon, Clock, Weight, Repeat, FileText, Trophy, Medal, LayoutDashboard, Share2, ArrowUpRight, TrendingUp, Dumbbell, AlertTriangle, ShieldAlert, Trash2, CheckCircle2 } from 'lucide-react';
-import { cn, formatDate, getTodayDate, getWeekRange } from '@/src/lib/utils';
-
+import { cn, formatDate, getTodayDate, getWeekRange, parseScoreToNumber } from '@/src/lib/utils';
 interface CoachViewProps {
   activeTab?: 'athletes' | 'wods' | 'leaderboard' | 'dashboard' | 'pulse' | 'team';
   onTabChange?: (tab: string) => void;
