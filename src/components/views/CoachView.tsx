@@ -11,6 +11,80 @@ interface CoachViewProps {
   activeTab?: 'athletes' | 'wods' | 'leaderboard' | 'dashboard' | 'pulse' | 'team';
   onTabChange?: (tab: string) => void;
 }
+// --- COPIAR DESDE ACÁ ---
+function WodRanking({ wodId, type }: { wodId: string, type: 'time' | 'weight' | 'reps' }) {
+  const [results, setResults] = useState<any[]>([]);
+
+  useEffect(() => {
+    if (!wodId) return;
+    
+    // Regla de Oro: Tiempo -> ASC (el más rápido arriba). Peso/Reps -> DESC (el más pesado arriba)
+    const direction = type === 'time' ? 'asc' : 'desc';
+
+    const q = query(
+      collection(db, "workout_results"), 
+      where("wodId", "==", wodId),
+      orderBy("scoreValue", direction) // Este es el campo numérico que creamos en AthleteView
+    );
+
+    const unsubscribe = onSnapshot(q, (snapshot) => {
+      setResults(snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() })));
+    });
+
+    return () => unsubscribe();
+  }, [wodId, type]);
+
+  return (
+    <div className="bg-slate-900/50 border border-slate-800/50 rounded-[32px] overflow-hidden mt-6 shadow-2xl">
+      <div className="p-5 bg-emerald-950/20 border-b border-slate-800/50 flex justify-between items-center">
+        <h3 className="text-lime-400 font-black italic uppercase text-xs tracking-[0.2em] flex items-center gap-2">
+          <Trophy className="w-4 h-4 text-lime-400" /> Ranking Jungle HP
+        </h3>
+        <span className="text-[10px] bg-slate-800 text-slate-400 px-2 py-1 rounded-full uppercase font-black">
+          {type === 'time' ? 'Time Cap' : type === 'weight' ? 'Max Weight' : 'AMRAP'}
+        </span>
+      </div>
+      
+      <div className="divide-y divide-slate-800/30">
+        {results.length > 0 ? (
+          results.map((res, index) => (
+            <motion.div 
+              initial={{ opacity: 0, x: -10 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: index * 0.05 }}
+              key={res.id} 
+              className="p-5 flex items-center justify-between hover:bg-slate-800/20 transition-all"
+            >
+              <div className="flex items-center gap-4">
+                <span className={`text-xl font-black italic w-8 ${
+                  index === 0 ? 'text-lime-400' : index === 1 ? 'text-slate-300' : index === 2 ? 'text-amber-600' : 'text-slate-700'
+                }`}>
+                  #{index + 1}
+                </span>
+                <div>
+                  <p className="text-slate-100 font-black uppercase text-sm tracking-tight">{res.athleteName}</p>
+                  <p className="text-[9px] text-slate-500 font-bold uppercase tracking-widest">RPE {res.rpe} • {res.modality}</p>
+                </div>
+              </div>
+              <div className="text-right">
+                <p className="text-lime-400 font-black text-xl font-mono tracking-tighter leading-none">
+                  {res.score}
+                </p>
+                {index === 0 && <p className="text-[8px] text-lime-500/50 font-black uppercase mt-1">Apex Leader</p>}
+              </div>
+            </motion.div>
+          ))
+        ) : (
+          <div className="p-12 text-center">
+            <Activity className="w-8 h-8 text-slate-800 mx-auto mb-3" />
+            <p className="text-slate-600 italic text-xs uppercase font-black tracking-widest">Esperando resultados...</p>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
+// --- HASTA ACÁ ---
 
 export default function CoachView({ activeTab: propsTab, onTabChange }: CoachViewProps) {
   const { profile } = useAuth();
