@@ -465,15 +465,20 @@ export default function CoachView({ activeTab: propsTab, onTabChange }: CoachVie
               <section className="bg-slate-900 rounded-[28px] p-4 border border-slate-800">
                 <h3 className="text-sm font-black italic uppercase tracking-tighter flex items-center gap-2 text-slate-100 mb-3">
                   <Activity className="w-4 h-4 text-lime-400" />
-                  Readiness Team
-{wods.length > 0 && (
-  <div className="mb-8">
+<div className="space-y-6">
+  <h3 className="text-sm font-black italic uppercase tracking-tighter flex items-center gap-2 text-slate-100">
+    <Activity className="w-4 h-4 text-lime-400" />
+    Readiness Team
+  </h3>
+
+  {/* El Ranking va ACÁ AFUERA para que se vea bien en toda la pantalla */}
+  {wods.length > 0 && (
     <WodRanking 
-      wodId={wods[0].id} // Toma el primer WOD de hoy
-      type={wods[0].type as any} 
+      wodId={wods.find(w => w.date === getTodayDate())?.id || wods[0].id} 
+      type={(wods.find(w => w.date === getTodayDate())?.type || wods[0].type) as any} 
     />
-  </div>
-)}
+  )}
+</div>
                 </h3>
                 <div className="grid grid-cols-4 sm:grid-cols-6 gap-2">
                   {athletes.map(athlete => (
