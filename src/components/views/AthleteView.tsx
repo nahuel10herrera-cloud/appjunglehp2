@@ -346,13 +346,13 @@ export default function AthleteView({ activeTab = 'home' }: AthleteViewProps) {
         fullScore = `${logData.scoreValue} reps`;
       }
 
-      const payload = {
+const payload = {
   athleteId: profile.uid,
-  athleteName: profile.displayName || 'Atleta', // 👈 AGREGAR ESTO
+  athleteName: profile.displayName || 'Atleta', // Agregamos el nombre para el ranking
   wodId: activeWodForLog.id,
   date: today,
   score: fullScore,
-  // 👇 AGREGAR ESTA LÍNEA (Usa la función que pusimos en utils.ts)
+  // 👇 ESTA ES LA MAGIA: convierte el texto en número para el ranking
   scoreValue: parseScoreToNumber(logData.scoreValue, activeWodForLog.type), 
   modality: logData.modality,
   rpe: logData.rpe,
@@ -364,7 +364,6 @@ export default function AthleteView({ activeTab = 'home' }: AthleteViewProps) {
   },
   updatedAt: serverTimestamp()
 };
-
       if (isEditing) {
         const existingResult = todayResults[activeWodForLog.id!];
         if (existingResult?.id) {
