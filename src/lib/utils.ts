@@ -44,3 +44,18 @@ export function getWeekRange() {
     end: format(sunday)
   };
 }
+// Al final de src/lib/utils.ts
+
+export const parseScoreToNumber = (score: string, type: 'time' | 'weight' | 'reps'): number => {
+  if (!score) return 0;
+  
+  if (type === 'time') {
+    // Convierte "10:30" -> 630 (segundos totales)
+    const [minutes, seconds] = score.split(':').map(Number);
+    return (minutes * 60) + (seconds || 0);
+  }
+  
+  // Para kilos o repeticiones, limpia el texto y lo hace número puro
+  // Ej: "100kg" -> 100
+  return parseFloat(score.replace(/[^0-9.]/g, '')) || 0;
+};
