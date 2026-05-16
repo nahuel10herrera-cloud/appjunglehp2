@@ -6,7 +6,7 @@ import { WellnessEntry, Wod, WorkoutSession, CoachFeedback, UserProfile, Benchma
 import { handleFirestoreError, OperationType } from '@/src/lib/firebase';
 import { motion, AnimatePresence } from 'motion/react';
 import { Star, MessageSquare, ChevronRight, CheckCircle2, Activity, Zap, Info, Clock, Weight, Repeat, TrendingUp, Dumbbell, Trophy, Medal, History as HistoryIcon, ClipboardList, Pencil, Check, Calculator, X, Plus, ArrowUpRight } from 'lucide-react';
-import { cn, formatDate, getTodayDate } from '@/src/lib/utils';
+import { cn, formatDate, getTodayDate, parseScoreToNumber } from '@/src/lib/utils';
 import { generateCoachRecommendation } from '@/src/services/gemini';
 
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
