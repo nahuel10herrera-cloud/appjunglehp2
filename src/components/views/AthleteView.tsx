@@ -348,11 +348,11 @@ export default function AthleteView({ activeTab = 'home' }: AthleteViewProps) {
 
 const payload = {
   athleteId: profile.uid,
-  athleteName: profile.displayName || 'Atleta', // Agregamos el nombre para el ranking
+  athleteName: profile.displayName || 'Atleta', // IMPORTANTE: Agregamos el nombre para el ranking
   wodId: activeWodForLog.id,
   date: today,
   score: fullScore,
-  // 👇 ESTA ES LA MAGIA: convierte el texto en número para el ranking
+  // 👇 ESTA ES LA CLAVE: guarda el número puro para ordenar el ranking
   scoreValue: parseScoreToNumber(logData.scoreValue, activeWodForLog.type), 
   modality: logData.modality,
   rpe: logData.rpe,
