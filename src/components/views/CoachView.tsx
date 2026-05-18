@@ -459,7 +459,11 @@ export default function CoachView({ activeTab: propsTab, onTabChange }: CoachVie
       setToast({ message: 'Feedback inyectado en el perfil del atleta', type: 'success' });
     } catch (e) { handleFirestoreError(e, OperationType.CREATE, 'coach_feedback'); }
   };
-
+const copyToClipboard = () => {
+    navigator.clipboard.writeText(window.location.href);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 3000);
+  };
   const getDayReadinessColor = (wellness: WellnessEntry[]) => {
     if (wellness.length === 0) return 'bg-slate-800 opacity-20';
     const latest = wellness[0];
