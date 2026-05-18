@@ -490,7 +490,7 @@ const copyToClipboard = () => {
               <div className="h-[2px] w-20 bg-slate-800" />
               <p className="text-slate-500 text-[12px] font-bold uppercase tracking-[0.6em] italic opacity-60">Jungle HP Ops Center</p>
             </div>
-            <h2 className="text-8xl font-black italic tracking-tighter uppercase text-white leading-none">
+            <h2 className="text-5xl md:text-6xl font-black italic tracking-tighter uppercase text-white leading-none">
                Box <span className="text-lime-400 underline decoration-slate-800 decoration-[16px] underline-offset-[16px] italic">Control</span>
             </h2>
           </div>
@@ -526,7 +526,7 @@ const copyToClipboard = () => {
               key={item.id} 
               onClick={() => setActiveTab(item.id as any)} 
               className={cn(
-                "flex-1 flex flex-col items-center justify-center gap-3 px-10 py-7 rounded-[30px] text-[11px] font-black uppercase tracking-[0.2em] transition-all duration-700 relative group/btn", 
+                "flex-1 flex flex-col items-center justify-center gap-2 px-6 py-4 rounded-2xl text-xs font-black uppercase tracking-[0.2em] transition-all duration-700 relative group/btn", 
                 activeTab === item.id 
                   ? "bg-emerald-700 text-white shadow-[0_25px_60px_rgba(4,120,87,0.6)] scale-[1.08] z-10 border border-emerald-500/30" 
                   : "text-slate-500 hover:text-slate-100 hover:bg-slate-800/50"
@@ -684,7 +684,7 @@ const copyToClipboard = () => {
                        <div className="w-5 h-5 rounded-full bg-red-500 animate-ping shadow-[0_0_35px_rgba(239,68,68,1)]" />
                        <p className="text-red-500 text-[14px] font-black uppercase tracking-[0.6em] italic leading-none">Box Health Biometrics v3.0</p>
                     </div>
-                    <h3 className="text-8xl font-black italic uppercase tracking-tighter text-white leading-none mb-0">
+                    <h3 className="text-5xl md:text-6xl font-black italic uppercase tracking-tighter text-white leading-none mb-0">
                       Jungle <span className="text-lime-400">Pulse</span>
                     </h3>
                     <p className="text-[16px] text-slate-600 font-bold uppercase tracking-widest mt-12 leading-relaxed max-w-2xl italic opacity-80">
@@ -871,7 +871,7 @@ const copyToClipboard = () => {
                               <h3 className="text-9xl font-black italic uppercase tracking-tighter leading-[0.65] mb-0 group-hover:text-emerald-400 transition-colors duration-1000 shadow-emerald-500/20">{selectedAthlete.displayName}</h3>
                               <div className="bg-slate-950/80 px-8 py-4 rounded-3xl border-4 border-slate-800 text-[16px] font-black uppercase text-slate-700 italic tracking-[0.5em] leading-none shadow-[0_30px_60px_rgba(0,0,0,1)] hover:scale-110 transition-transform">ELITE RX_DIV</div>
                            </div>
-                           <p className="text-[18px] text-slate-600 font-bold uppercase tracking-[0.8em] italic leading-none max-w-4xl mx-auto lg:mx-0 mt-8 opacity-60">
+                           <p className="text-[18px] text-slate-600 font-bold uppercase tracking-widest italic leading-none max-w-4xl mx-auto lg:mx-0 mt-8 opacity-60">
                               Systemic Biometric & Performance Analysis / Staff Access Only
                            </p>
                         </div>
@@ -1090,18 +1090,18 @@ const copyToClipboard = () => {
                    <div className="w-5 h-5 rounded-full bg-emerald-500 shadow-[0_0_25px_rgba(16,185,129,1)] animate-pulse" />
                    <p className="text-emerald-500 text-[14px] font-black uppercase tracking-[0.8em] italic leading-none">Staff Programming Protocol v2.5</p>
                 </div>
-                <h3 className="text-9xl font-black italic uppercase text-white tracking-tighter leading-none flex flex-wrap justify-center lg:justify-start items-center gap-12">
+                <h3 className="text-4xl md:text-5xl font-black italic uppercase text-white tracking-tighter leading-none flex flex-wrap justify-center lg:justify-start items-center gap-12">
                   WOD <span className="text-emerald-500 underline underline-offset-[25px] decoration-[20px] decoration-emerald-950/70 italic">Schedule</span>
                 </h3>
                 <div className="bg-slate-900/70 p-8 rounded-[36px] border-2 border-slate-800/50 inline-block backdrop-blur-3xl shadow-[0_30px_60px_rgba(0,0,0,0.6)] group">
-                   <p className="text-[16px] text-slate-500 font-black uppercase tracking-[0.5em] leading-none italic flex items-center gap-6 group-hover:text-white transition-colors duration-700">
+                   <p className="text-xs text-slate-500 font-black uppercase tracking-widest leading-none italic flex items-center gap-6 group-hover:text-white transition-colors duration-700">
                       <Calendar className="w-8 h-8 text-emerald-500 group-hover:rotate-12 transition-transform" /> RANGO_SEM: {formatDate(weekStart).split(',')[1]} — {formatDate(weekEnd).split(',')[1]}
                    </p>
                 </div>
               </div>
               <button 
                 onClick={() => { setEditingWod(null); setNewWod({ title: '', description: '', type: '', date: getTodayDate() }); setShowWodForm(true); }} 
-                className="bg-emerald-700 text-white px-20 py-12 rounded-[56px] text-[18px] font-black uppercase flex items-center gap-10 hover:bg-emerald-600 active:scale-95 transition-all shadow-[0_50px_100px_rgba(4,120,87,0.5)] border-4 border-emerald-500/20 group relative z-10 italic"
+                className="bg-emerald-700 text-white px-6 py-4 rounded-2xl text-sm font-black uppercase flex items-center gap-10 hover:bg-emerald-600 active:scale-95 transition-all shadow-[0_50px_100px_rgba(4,120,87,0.5)] border-4 border-emerald-500/20 group relative z-10 italic"
               >
                 <div className="bg-emerald-950 p-4 rounded-[24px] group-hover:rotate-180 transition-transform duration-1000 shadow-2xl border-2 border-emerald-800/50">
                    <Plus className="w-10 h-10" />
@@ -1406,7 +1406,7 @@ const copyToClipboard = () => {
                initial={{ scale: 0.6, opacity: 0, y: 150 }} 
                animate={{ scale: 1, opacity: 1, y: 0 }} 
                transition={{ type: 'spring', damping: 35, stiffness: 120 }}
-               className="bg-slate-900 p-24 rounded-[100px] w-full max-w-6xl border-4 border-slate-800 shadow-[0_100px_200px_rgba(0,0,0,1)] relative overflow-hidden" 
+               className="bg-slate-900 p-8 md:p-12 rounded-3xl w-full max-w-3xl border-4 border-slate-800 shadow-[0_100px_200px_rgba(0,0,0,1)] relative overflow-hidden" 
              >
                 <div className="absolute -top-32 -left-32 p-40 opacity-[0.02] pointer-events-none rotate-[25deg]">
                    <Calendar className="w-[800px] h-[800px] text-white" />
@@ -1438,7 +1438,7 @@ const copyToClipboard = () => {
                            type="date" 
                            value={newWod.date} 
                            onChange={e => setNewWod({...newWod, date: e.target.value})} 
-                           className="w-full bg-slate-950/90 border-4 border-slate-800 rounded-[48px] p-12 text-2xl text-white outline-none focus:border-emerald-700 transition-all duration-1000 font-black shadow-[inset_0_20px_50px_rgba(0,0,0,1)] tracking-tighter" 
+                           className="w-full bg-slate-950/90 border-4 border-slate-800 rounded-xl p-4 text-base text-white outline-none focus:border-emerald-700 transition-all duration-1000 font-black shadow-[inset_0_20px_50px_rgba(0,0,0,1)] tracking-tighter" 
                         />
                      </div>
                      <div className="space-y-8">
@@ -1446,7 +1446,7 @@ const copyToClipboard = () => {
                         <select 
                            value={newWod.type} 
                            onChange={e => setNewWod({...newWod, type: e.target.value})} 
-                           className="w-full bg-slate-950/90 border-4 border-slate-800 rounded-[48px] p-12 text-[20px] font-black uppercase text-white outline-none focus:border-emerald-700 transition-all duration-1000 shadow-[inset_0_20px_50px_rgba(0,0,0,1)] italic tracking-widest cursor-pointer"
+                           className="w-full bg-slate-950/90 border-4 border-slate-800 rounded-xl p-4 text-base font-black uppercase text-white outline-none focus:border-emerald-700 transition-all duration-1000 shadow-[inset_0_20px_50px_rgba(0,0,0,1)] italic tracking-widest cursor-pointer"
                         >
                            <option value="">-- SELECT LOGIC --</option>
                            <option value="time">FOR TIME (Cronómetro/Velocidad)</option>
@@ -1462,7 +1462,7 @@ const copyToClipboard = () => {
                         placeholder="HERO WORKOUT / BOX CODE..." 
                         value={newWod.title} 
                         onChange={e => setNewWod({...newWod, title: e.target.value})} 
-                        className="w-full bg-slate-950/90 border-4 border-slate-800 rounded-[48px] p-12 text-5xl font-black italic text-white outline-none focus:border-emerald-700 transition-all duration-1000 shadow-[inset_0_20px_50px_rgba(0,0,0,1)] placeholder-slate-900 tracking-tighter" 
+                        className="w-full bg-slate-950/90 border-4 border-slate-800 rounded-xl p-4 text-xl font-black italic text-white outline-none focus:border-emerald-700 transition-all duration-1000 shadow-[inset_0_20px_50px_rgba(0,0,0,1)] placeholder-slate-900 tracking-tighter" 
                      />
                   </div>
 
@@ -1473,7 +1473,7 @@ const copyToClipboard = () => {
                         value={newWod.description} 
                         onChange={e => setNewWod({...newWod, description: e.target.value})} 
                         rows={6} 
-                        className="w-full bg-slate-950/90 border-4 border-slate-800 rounded-[64px] p-16 text-[22px] font-medium italic text-slate-300 outline-none focus:border-emerald-700 transition-all duration-[1500ms] leading-relaxed shadow-[inset_0_20px_50px_rgba(0,0,0,1)] placeholder-slate-900" 
+                        className="w-full bg-slate-950/90 border-4 border-slate-800 rounded-2xl p-4 text-base font-medium italic text-slate-300 outline-none focus:border-emerald-700 transition-all duration-[1500ms] leading-relaxed shadow-[inset_0_20px_50px_rgba(0,0,0,1)] placeholder-slate-900" 
                      />
                   </div>
 
