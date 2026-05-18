@@ -10,7 +10,7 @@ export async function generateCoachRecommendation(
   wellness: WellnessEntry,
   session?: WorkoutSession
 ): Promise<string> {
-  const model = genAI.getGenerativeModel({ model: "gemini-pro" });
+  const model = genAI.getGenerativeModel({ model: "gemini-1.0-pro" });
   
   const prompt = `
     Eres un coach experto de CrossFit de "Jungle HP". 
