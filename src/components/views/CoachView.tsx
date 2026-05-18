@@ -572,7 +572,7 @@ const copyToClipboard = () => {
             ))}
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-14">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
             {/* LADO IZQUIERDO: RANKING DEL DÍA */}
             <div className="lg:col-span-2 space-y-12">
                <section className="bg-slate-900 rounded-[70px] p-20 border-2 border-slate-800 shadow-[0_80px_160px_rgba(0,0,0,0.7)] relative overflow-hidden group">
@@ -1120,22 +1120,22 @@ const copyToClipboard = () => {
                     initial={{ opacity: 0, y: 50 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: idx * 0.1 }}
                     key={date} 
                     className={cn(
-                        "bg-slate-900/40 p-16 rounded-[80px] border transition-all duration-1000 flex flex-col h-full min-h-[650px] backdrop-blur-3xl relative group shadow-[0_40px_80px_rgba(0,0,0,0.5)]",
-                        isToday ? "border-emerald-500/50 bg-slate-900/90 shadow-[0_80px_160px_rgba(0,0,0,0.8)] ring-[12px] ring-emerald-500/10 scale-[1.08] z-30" : "border-slate-800 shadow-black hover:border-slate-600 hover:bg-slate-900/60"
+                        "bg-slate-900/40 p-8 rounded-[40px] border transition-all duration-1000 flex flex-col h-full min-h-[400px] backdrop-blur-3xl relative group shadow-[0_40px_80px_rgba(0,0,0,0.5)]",
+                        isToday ? "border-emerald-500/50 bg-slate-900/90 shadow-[0_80px_160px_rgba(0,0,0,0.8)] ring-4 ring-emerald-500/10 scale-105 z-30" : "border-slate-800 shadow-black hover:border-slate-600 hover:bg-slate-900/60"
                     )}
                  >
                     {isToday && (
                        <div className="absolute top-14 right-14">
-                          <div className="px-8 py-3 rounded-[24px] bg-emerald-500 text-black text-[12px] font-black uppercase italic tracking-[0.4em] shadow-[0_20px_40px_rgba(16,185,129,0.6)] animate-bounce border-2 border-emerald-400">
+                          <div className="px-4 py-1.5 rounded-xl bg-emerald-500 text-black text-[9px] font-black uppercase italic tracking-[0.4em] shadow-[0_20px_40px_rgba(16,185,129,0.6)] animate-bounce border-2 border-emerald-400">
                              ACTIVE TODAY
                           </div>
                        </div>
                     )}
                     <div className="mb-24 text-center relative group/title">
-                       <p className={cn("text-[24px] font-black uppercase mb-5 italic tracking-[0.5em] leading-none transition-all duration-1000 group-hover/title:tracking-[0.6em]", isToday ? "text-emerald-400" : "text-slate-600 group-hover/title:text-slate-300")}>
+                       <p className={cn("text-lg font-black uppercase mb-2 italic tracking-widest leading-none transition-all duration-1000 group-hover/title:tracking-[0.6em]", isToday ? "text-emerald-400" : "text-slate-600 group-hover/title:text-slate-300")}>
                           {weekDays[idx]}
                        </p>
-                       <p className="text-[16px] font-mono text-slate-800 font-black opacity-40 tracking-[0.8em] group-hover:opacity-100 transition-opacity duration-1000 leading-none">
+                       <p className="text-xs font-mono text-slate-500 font-black opacity-60 tracking-widest group-hover:opacity-100 transition-opacity duration-1000 leading-none">
                           {date.split('-').reverse().slice(0,2).join('.').toUpperCase()}
                        </p>
                     </div>
@@ -1171,12 +1171,12 @@ const copyToClipboard = () => {
                        {dayWods.length === 0 && (
                           <button 
                             onClick={() => { setEditingWod(null); setNewWod({ title: '', description: '', type: '', date }); setShowWodForm(true); }}
-                            className="w-full h-full border-4 border-dashed border-slate-800/40 rounded-[70px] flex flex-col items-center justify-center gap-12 text-slate-800 hover:text-emerald-500 hover:border-emerald-700/60 transition-all duration-[1200ms] group/add p-24 bg-slate-950/30 hover:bg-slate-950/60 shadow-[inset_0_20px_50px_rgba(0,0,0,0.4)]"
+                            className="w-full h-full border-2 border-dashed border-slate-800/50 rounded-[32px] flex flex-col items-center justify-center gap-4 text-slate-800 hover:text-emerald-500 hover:border-emerald-700/60 transition-all duration-[1200ms] group/add p-10 bg-slate-950/30 hover:bg-slate-950/60 shadow-[inset_0_20px_50px_rgba(0,0,0,0.4)]"
                           >
-                             <div className="w-28 h-28 rounded-[44px] bg-slate-900 border-2 border-slate-800 flex items-center justify-center group-hover/add:rotate-180 group-hover/add:scale-[1.3] transition-all duration-[1500ms] shadow-[0_40px_80px_rgba(0,0,0,1)] group-hover/add:bg-emerald-950 group-hover/add:border-emerald-700 group-hover/add:shadow-emerald-900/40">
-                                <Plus className="w-14 h-14" />
+                             <div className="w-14 h-14 rounded-2xl bg-slate-900 border-2 border-slate-800 flex items-center justify-center group-hover/add:rotate-180 group-hover/add:scale-[1.3] transition-all duration-[1500ms] shadow-[0_40px_80px_rgba(0,0,0,1)] group-hover/add:bg-emerald-950 group-hover/add:border-emerald-700 group-hover/add:shadow-emerald-900/40">
+                                <Plus className="w-6 h-6" />
                              </div>
-                             <span className="text-[16px] font-black uppercase italic tracking-[0.8em] leading-none opacity-30 group-hover/add:opacity-100 transition-all duration-1000 group-hover/add:tracking-[1em]">PLAN_WOD</span>
+                             <span className="text-[10px] font-black uppercase italic tracking-widest leading-none opacity-30 group-hover/add:opacity-100 transition-all duration-1000 group-hover/add:tracking-[1em]">PLAN_WOD</span>
                           </button>
                        )}
                     </div>
