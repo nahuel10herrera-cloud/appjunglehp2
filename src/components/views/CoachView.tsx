@@ -93,7 +93,7 @@ function PerformanceChart({ data }: { data: WorkoutSession[] }) {
   if (chartData.length < 2) {
     return (
       <div className="h-72 flex flex-col items-center justify-center bg-slate-950/40 rounded-[50px] border-2 border-dashed border-slate-800/60 p-12 group transition-all hover:border-emerald-900/50">
-        <div className="w-20 h-20 bg-slate-900 rounded-[30px] flex items-center justify-center mb-6 shadow-2xl group-hover:scale-110 transition-transform duration-500">
+        <div className="w-6 h-6 bg-slate-900 rounded-[30px] flex items-center justify-center mb-6 shadow-2xl group-hover:scale-110 transition-transform duration-500">
            <BarChart3 className="w-10 h-10 text-slate-700 group-hover:text-emerald-500 transition-colors" />
         </div>
         <p className="text-[11px] font-black uppercase text-slate-600 tracking-[0.4em] text-center italic leading-relaxed max-w-[250px]">
@@ -189,7 +189,7 @@ function WodRanking({ wodId, type }: { wodId: string, type: 'time' | 'weight' | 
 
   if (isLoading) {
     return (
-      <div className="p-24 text-center">
+      <div className="p-5 text-center">
          <Activity className="w-12 h-12 text-emerald-500 mx-auto animate-spin" />
          <p className="text-[11px] font-black uppercase text-slate-700 mt-6 tracking-widest italic">Accediendo a la red Jungle...</p>
       </div>
@@ -264,9 +264,9 @@ function WodRanking({ wodId, type }: { wodId: string, type: 'time' | 'weight' | 
             </div>
           </motion.div>
         )) : (
-          <div className="p-40 text-center flex flex-col items-center justify-center">
+          <div className="p-6 text-center flex flex-col items-center justify-center">
             <div className="relative mb-10">
-               <Activity className="w-20 h-20 text-slate-800 animate-pulse opacity-10" />
+               <Activity className="w-6 h-6 text-slate-800 animate-pulse opacity-10" />
                <Target className="w-10 h-10 text-slate-800 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 opacity-20" />
             </div>
             <p className="text-slate-700 uppercase font-black italic text-[14px] tracking-[0.6em] leading-relaxed max-w-sm">
@@ -497,7 +497,7 @@ const copyToClipboard = () => {
           
           <div className="flex items-center gap-6 bg-slate-900/40 p-5 pr-10 rounded-[44px] border border-slate-800/50 backdrop-blur-3xl shadow-[0_40px_80px_rgba(0,0,0,0.5)] group hover:border-emerald-900 transition-all duration-700">
              <div className="relative">
-                <img src={profile?.photoURL || `https://api.dicebear.com/7.x/avataaars/svg?seed=${profile?.uid}`} className="w-20 h-20 rounded-[28px] border-4 border-slate-700 object-cover group-hover:scale-110 transition-transform duration-700 shadow-2xl" alt="" />
+                <img src={profile?.photoURL || `https://api.dicebear.com/7.x/avataaars/svg?seed=${profile?.uid}`} className="w-6 h-6 rounded-[28px] border-4 border-slate-700 object-cover group-hover:scale-110 transition-transform duration-700 shadow-2xl" alt="" />
                 <div className="absolute -bottom-2 -right-2 w-7 h-7 bg-emerald-500 rounded-full border-[6px] border-slate-900 shadow-2xl animate-pulse" />
              </div>
              <div className="hidden sm:block">
@@ -562,7 +562,7 @@ const copyToClipboard = () => {
                 className="bg-slate-900/60 p-12 rounded-[56px] border-2 border-slate-800/50 group hover:border-slate-600 transition-all duration-700 shadow-3xl backdrop-blur-md relative overflow-hidden"
               >
                 <div className="absolute -top-6 -right-6 p-8 opacity-[0.03] group-hover:scale-150 transition-transform duration-1000 group-hover:rotate-12">
-                   <stat.icon className="w-32 h-32 text-white" />
+                   <stat.icon className="w-10 h-10 text-white" />
                 </div>
                 <stat.icon className={cn("w-9 h-9 mb-12 transition-transform duration-700 group-hover:scale-125", stat.color)} />
                 <div className="text-6xl font-black italic tracking-tighter text-white leading-none mb-4 group-hover:text-lime-400 transition-colors">{stat.value}</div>
@@ -575,14 +575,14 @@ const copyToClipboard = () => {
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
             {/* LADO IZQUIERDO: RANKING DEL DÍA */}
             <div className="lg:col-span-2 space-y-12">
-               <section className="bg-slate-900 rounded-[70px] p-20 border-2 border-slate-800 shadow-[0_80px_160px_rgba(0,0,0,0.7)] relative overflow-hidden group">
-                  <div className="absolute -top-20 -right-20 p-20 opacity-[0.03] group-hover:scale-125 transition-transform duration-[2000ms] pointer-events-none rotate-[20deg]">
+               <section className="bg-slate-900 rounded-[70px] p-4 border-2 border-slate-800 shadow-[0_80px_160px_rgba(0,0,0,0.7)] relative overflow-hidden group">
+                  <div className="absolute -top-4 -right-20 p-4 opacity-[0.03] group-hover:scale-125 transition-transform duration-[2000ms] pointer-events-none rotate-[20deg]">
                      <Trophy className="w-[600px] h-[600px] text-white" />
                   </div>
                   
                   <div className="flex flex-col md:flex-row md:items-center justify-between mb-20 gap-10 relative z-10">
                     <div className="flex items-center gap-10">
-                      <div className="w-20 h-20 rounded-[36px] bg-lime-400 flex items-center justify-center shadow-[0_0_50px_rgba(163,230,53,0.5)] transition-all group-hover:rotate-[15deg] group-hover:scale-110">
+                      <div className="w-6 h-6 rounded-[36px] bg-lime-400 flex items-center justify-center shadow-[0_0_50px_rgba(163,230,53,0.5)] transition-all group-hover:rotate-[15deg] group-hover:scale-110">
                          <Zap className="w-12 h-12 text-black" />
                       </div>
                       <div>
@@ -602,7 +602,7 @@ const copyToClipboard = () => {
                        <WodRanking wodId={todayWod.id!} type={todayWod.type as any} />
                     </motion.div>
                   ) : (
-                    <div className="p-32 text-center border-4 border-dashed border-slate-800/60 rounded-[70px] bg-slate-950/30 group hover:border-emerald-900/50 transition-all duration-1000">
+                    <div className="p-6 text-center border-4 border-dashed border-slate-800/60 rounded-[70px] bg-slate-950/30 group hover:border-emerald-900/50 transition-all duration-1000">
                        <div className="w-28 h-28 bg-slate-900 rounded-[40px] flex items-center justify-center mx-auto mb-12 border-2 border-slate-800 shadow-3xl group-hover:scale-110 group-hover:rotate-12 transition-all duration-700">
                           <Calendar className="w-14 h-14 text-slate-700 group-hover:text-emerald-500 transition-colors" />
                        </div>
@@ -618,7 +618,7 @@ const copyToClipboard = () => {
             {/* LADO DERECHO: FEED DE ACTIVIDAD EN VIVO */}
             <section className="bg-slate-900 rounded-[70px] p-14 border-2 border-slate-800 shadow-[0_60px_120px_rgba(0,0,0,0.6)] flex flex-col relative overflow-hidden h-full">
                <div className="absolute top-0 right-0 p-12 opacity-[0.03] pointer-events-none rotate-[30deg] scale-150">
-                  <Activity className="w-64 h-64 text-white" />
+                  <Activity className="w-16 h-16 text-white" />
                </div>
                <h3 className="text-[13px] font-black italic uppercase tracking-[0.6em] flex items-center gap-6 text-slate-400 mb-20 leading-none relative z-10">
                   <HistoryIcon className="w-7 h-7 text-lime-400" /> REAL-TIME ACTIVITY
@@ -647,7 +647,7 @@ const copyToClipboard = () => {
                    </motion.div>
                  )) : (
                    <div className="h-full flex flex-col items-center justify-center opacity-10">
-                      <Activity className="w-24 h-24 mb-10" />
+                      <Activity className="w-8 h-8 mb-10" />
                       <p className="text-[14px] font-black uppercase italic tracking-[0.6em] text-center">SYNCHRONIZING WITH CLOUD...</p>
                    </div>
                  )}
@@ -673,12 +673,12 @@ const copyToClipboard = () => {
       ---------------------------------------------------------------------- */}
       {activeTab === 'pulse' && (
         <div className="space-y-12 animate-in fade-in duration-800 slide-in-from-left-10">
-           <div className="bg-slate-900 rounded-[80px] p-24 border-2 border-slate-800 shadow-[0_100px_200px_rgba(0,0,0,0.8)] relative overflow-hidden">
-              <div className="absolute -top-40 -right-40 p-40 opacity-[0.02] pointer-events-none scale-150 rotate-[35deg]">
+           <div className="bg-slate-900 rounded-[24px] p-5 border-2 border-slate-800 shadow-[0_100px_200px_rgba(0,0,0,0.8)] relative overflow-hidden">
+              <div className="absolute -top-6 -right-40 p-6 opacity-[0.02] pointer-events-none scale-150 rotate-[35deg]">
                  <ShieldAlert className="w-[800px] h-[800px] text-white" />
               </div>
               
-              <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-20 mb-28 relative z-10">
+              <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-4 mb-28 relative z-10">
                  <div className="space-y-10">
                     <div className="flex items-center gap-6">
                        <div className="w-5 h-5 rounded-full bg-red-500 animate-ping shadow-[0_0_35px_rgba(239,68,68,1)]" />
@@ -717,8 +717,8 @@ const copyToClipboard = () => {
                        <div className="flex items-center gap-14 min-w-[550px]">
                           <div className="relative group/avatar">
                              <div className="absolute inset-0 bg-white/5 blur-[100px] opacity-0 group-hover/avatar:opacity-100 transition-opacity duration-1000" />
-                             <img src={a.photoURL || `https://api.dicebear.com/7.x/avataaars/svg?seed=${a.uid}`} className="w-32 h-32 rounded-[50px] border-[6px] border-slate-800 group-hover/avatar:scale-105 group-hover/avatar:border-emerald-500/50 transition-all duration-1000 shadow-3xl z-10 relative object-cover" alt="" />
-                             <div className={cn("absolute -bottom-5 -right-5 w-14 h-14 rounded-[36px] border-[12px] border-slate-950 shadow-2xl z-20 flex items-center justify-center transition-all group-hover/avatar:scale-110", getDayReadinessColor([w].filter(Boolean)))}>
+                             <img src={a.photoURL || `https://api.dicebear.com/7.x/avataaars/svg?seed=${a.uid}`} className="w-10 h-10 rounded-[50px] border-[6px] border-slate-800 group-hover/avatar:scale-105 group-hover/avatar:border-emerald-500/50 transition-all duration-1000 shadow-3xl z-10 relative object-cover" alt="" />
+                             <div className={cn("absolute -bottom-5 -right-5 w-14 h-14 rounded-[36px] border-2 border-slate-950 shadow-2xl z-20 flex items-center justify-center transition-all group-hover/avatar:scale-110", getDayReadinessColor([w].filter(Boolean)))}>
                                 {w && <div className="w-4 h-4 rounded-full bg-white animate-ping" />}
                              </div>
                           </div>
@@ -760,7 +760,7 @@ const copyToClipboard = () => {
                        ) : (
                          <div className="flex-1 flex justify-center xl:justify-end items-center px-28 py-16 border-4 border-dashed border-slate-900/60 rounded-[60px] bg-slate-950/30 group-hover:border-slate-800 group-hover:bg-slate-950/50 transition-all duration-1000 shadow-inner">
                             <div className="flex items-center gap-10 opacity-20 group-hover:opacity-60 transition-all duration-1000 group-hover:scale-105">
-                               <ShieldAlert className="w-20 h-20 text-slate-700" />
+                               <ShieldAlert className="w-6 h-6 text-slate-700" />
                                <div className="text-left">
                                   <p className="text-[18px] font-black uppercase italic tracking-[0.6em] leading-none text-slate-500 mb-3">INCOMPLETE REPORT</p>
                                   <p className="text-[10px] text-slate-700 font-bold uppercase tracking-[0.3em]">Manual sync required from athlete terminal</p>
@@ -782,11 +782,11 @@ const copyToClipboard = () => {
       {activeTab === 'athletes' && (
         <div className="space-y-12 animate-in fade-in duration-1000 slide-in-from-right-10">
           {!selectedAthlete ? (
-            <div className="bg-slate-900 rounded-[70px] p-20 border-2 border-slate-800 shadow-[0_80px_160px_rgba(0,0,0,0.7)] relative overflow-hidden">
-               <div className="absolute top-0 right-0 p-20 opacity-[0.02] pointer-events-none rotate-[15deg] scale-150">
+            <div className="bg-slate-900 rounded-[70px] p-4 border-2 border-slate-800 shadow-[0_80px_160px_rgba(0,0,0,0.7)] relative overflow-hidden">
+               <div className="absolute top-0 right-0 p-4 opacity-[0.02] pointer-events-none rotate-[15deg] scale-150">
                   <Users className="w-[800px] h-[800px] text-white" />
                </div>
-               <div className="flex flex-col md:flex-row md:items-center justify-between gap-16 mb-24 relative z-10">
+               <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-24 relative z-10">
                   <div className="space-y-8">
                     <div className="flex items-center gap-6">
                        <div className="w-3 h-12 bg-emerald-500 rounded-full shadow-[0_0_30px_rgba(16,185,129,0.8)]" />
@@ -818,12 +818,12 @@ const copyToClipboard = () => {
                      className="flex items-center justify-between p-12 rounded-[60px] border-2 border-slate-800 bg-slate-950/50 hover:border-emerald-600/60 hover:bg-slate-900/80 transition-all group shadow-[0_30px_60px_rgba(0,0,0,0.5)] relative overflow-hidden group/card"
                    >
                       <div className="absolute top-0 right-0 p-10 opacity-[0.02] group-hover:opacity-10 transition-opacity duration-1000 rotate-[-15deg] group-hover:rotate-0">
-                         <Dumbbell className="w-24 h-24 text-white" />
+                         <Dumbbell className="w-8 h-8 text-white" />
                       </div>
                       <div className="flex items-center gap-10 text-left relative z-10">
                         <div className="relative group/av">
-                           <img src={a.photoURL || `https://api.dicebear.com/7.x/avataaars/svg?seed=${a.uid}`} className="w-24 h-24 rounded-[40px] border-[4px] border-slate-800 group-hover:border-emerald-500 transition-all duration-700 shadow-2xl object-cover group-hover/av:scale-110" alt="" />
-                           {todayWellness[a.uid] && <div className={cn("absolute -bottom-3 -right-3 w-10 h-10 rounded-full border-[8px] border-slate-950 shadow-3xl transition-all duration-700 group-hover/av:rotate-12", getDayReadinessColor([todayWellness[a.uid]]))}/>}
+                           <img src={a.photoURL || `https://api.dicebear.com/7.x/avataaars/svg?seed=${a.uid}`} className="w-8 h-8 rounded-[40px] border-[4px] border-slate-800 group-hover:border-emerald-500 transition-all duration-700 shadow-2xl object-cover group-hover/av:scale-110" alt="" />
+                           {todayWellness[a.uid] && <div className={cn("absolute -bottom-3 -right-3 w-10 h-10 rounded-full border-2 border-slate-950 shadow-3xl transition-all duration-700 group-hover/av:rotate-12", getDayReadinessColor([todayWellness[a.uid]]))}/>}
                         </div>
                         <div className="space-y-4">
                            <p className="text-3xl font-black italic uppercase tracking-tighter text-white leading-none group-hover:text-emerald-400 transition-colors duration-700">{a.displayName}</p>
@@ -850,18 +850,18 @@ const copyToClipboard = () => {
                {/* VISTA DE PERFIL EXPANDIDO (ELITE ANALYTICS) 
                    Esta sección contiene el Dashboard detallado del atleta.
                */}
-               <div className="bg-slate-900 rounded-[100px] p-24 border-2 border-slate-800 shadow-[0_120px_240px_rgba(0,0,0,0.9)] relative overflow-hidden text-white">
+               <div className="bg-slate-900 rounded-[24px] p-5 border-2 border-slate-800 shadow-[0_120px_240px_rgba(0,0,0,0.9)] relative overflow-hidden text-white">
                   
                   {/* Visual Decoration */}
-                  <div className="absolute top-0 right-0 p-40 opacity-[0.03] pointer-events-none rotate-[20deg] scale-150">
+                  <div className="absolute top-0 right-0 p-6 opacity-[0.03] pointer-events-none rotate-[20deg] scale-150">
                      <HeartPulse className="w-[800px] h-[800px] text-white" />
                   </div>
 
-                  <div className="flex flex-col lg:flex-row items-center lg:items-start gap-24 mb-32 relative z-10 text-center lg:text-left border-b-4 border-slate-800/40 pb-28">
+                  <div className="flex flex-col lg:flex-row items-center lg:items-start gap-5 mb-32 relative z-10 text-center lg:text-left border-b-4 border-slate-800/40 pb-28">
                      <div className="relative group/avlarge">
                         <div className="absolute inset-0 bg-lime-400 blur-[120px] opacity-0 group-hover/avlarge:opacity-30 transition-opacity duration-[2000ms]" />
-                        <img src={selectedAthlete.photoURL || `https://api.dicebear.com/7.x/avataaars/svg?seed=${selectedAthlete.uid}`} className="w-80 h-80 rounded-[80px] border-[12px] border-slate-800 shadow-[0_60px_120px_rgba(0,0,0,0.8)] group-hover/avlarge:scale-[1.08] group-hover/avlarge:rotate-[-2deg] transition-all duration-[1500ms] z-10 relative object-cover shadow-black" alt="" />
-                        <div className={cn("absolute -bottom-10 -right-10 w-32 h-32 rounded-[50px] border-[20px] border-slate-900 flex items-center justify-center z-20 shadow-[0_40px_80px_rgba(0,0,0,0.9)] transition-all group-hover/avlarge:scale-110 group-hover/avlarge:rotate-[15deg] duration-1000", getDayReadinessColor(athleteData.wellness))}>
+                        <img src={selectedAthlete.photoURL || `https://api.dicebear.com/7.x/avataaars/svg?seed=${selectedAthlete.uid}`} className="w-80 h-80 rounded-[24px] border-2 border-slate-800 shadow-[0_60px_120px_rgba(0,0,0,0.8)] group-hover/avlarge:scale-[1.08] group-hover/avlarge:rotate-[-2deg] transition-all duration-[1500ms] z-10 relative object-cover shadow-black" alt="" />
+                        <div className={cn("absolute -bottom-10 -right-10 w-10 h-10 rounded-[50px] border-[20px] border-slate-900 flex items-center justify-center z-20 shadow-[0_40px_80px_rgba(0,0,0,0.9)] transition-all group-hover/avlarge:scale-110 group-hover/avlarge:rotate-[15deg] duration-1000", getDayReadinessColor(athleteData.wellness))}>
                            <Flame className="w-12 h-12 text-white drop-shadow-[0_0_20px_rgba(255,255,255,0.8)]" />
                         </div>
                      </div>
@@ -916,9 +916,9 @@ const copyToClipboard = () => {
                   </div>
 
                   {/* ANALYTICS: EVOLUTION PERFORMANCE RADAR */}
-                  <div className="bg-slate-950/90 p-20 rounded-[80px] border-2 border-slate-800 mb-32 shadow-[inset_0_20px_100px_rgba(0,0,0,1)] relative group overflow-hidden">
-                     <div className="absolute top-0 right-0 p-16 opacity-[0.03] group-hover:opacity-15 transition-opacity duration-[2000ms]">
-                        <BarChart3 className="w-64 h-64 text-white" />
+                  <div className="bg-slate-950/90 p-4 rounded-[24px] border-2 border-slate-800 mb-32 shadow-[inset_0_20px_100px_rgba(0,0,0,1)] relative group overflow-hidden">
+                     <div className="absolute top-0 right-0 p-4 opacity-[0.03] group-hover:opacity-15 transition-opacity duration-[2000ms]">
+                        <BarChart3 className="w-16 h-16 text-white" />
                      </div>
                      <div className="flex flex-col xl:flex-row items-center justify-between mb-24 px-10 gap-12 relative z-10">
                         <div className="text-center xl:text-left">
@@ -940,7 +940,7 @@ const copyToClipboard = () => {
                   </div>
 
                   {/* LOWER GRID: LOGS & FEEDBACK HUB */}
-                  <div className="grid grid-cols-1 lg:grid-cols-2 gap-32 pt-32 border-t-4 border-slate-800/40 relative">
+                  <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 pt-32 border-t-4 border-slate-800/40 relative">
                      
                      {/* HISTORIAL DETALLADO DE SESIONES */}
                      <div className="space-y-20">
@@ -949,7 +949,7 @@ const copyToClipboard = () => {
                               <div className="p-5 bg-emerald-500/10 rounded-[28px] border-2 border-emerald-500/10 shadow-3xl">
                                  <HistoryIcon className="w-10 h-10 text-emerald-500" />
                               </div>
-                              <h4 className="text-[24px] font-black uppercase italic text-slate-200 tracking-[0.6em] leading-none mb-0">Training Log Archive</h4>
+                              <h4 className="text-xs font-black uppercase italic text-slate-200 tracking-[0.6em] leading-none mb-0">Training Log Archive</h4>
                            </div>
                            <div className="hidden sm:flex flex-col items-end">
                               <span className="text-[12px] font-black uppercase text-slate-700 bg-slate-950 px-8 py-4 rounded-2xl border-2 border-slate-800 font-mono shadow-inner tracking-[0.4em] italic">DB_SYNC_v3.0</span>
@@ -963,10 +963,10 @@ const copyToClipboard = () => {
                               className="bg-slate-950/90 p-12 rounded-[56px] border-2 border-slate-900 flex justify-between items-center group/card hover:border-emerald-900/60 hover:bg-slate-900/80 transition-all duration-700 shadow-[0_30px_60px_rgba(0,0,0,0.5)] relative overflow-hidden"
                             >
                               <div className="absolute top-0 right-0 p-8 opacity-0 group-hover/card:opacity-5 transition-opacity duration-1000 rotate-[-15deg]">
-                                 <Activity className="w-32 h-32 text-white" />
+                                 <Activity className="w-10 h-10 text-white" />
                               </div>
                               <div className="flex items-center gap-12 relative z-10">
-                                <div className="w-24 h-24 rounded-[36px] bg-slate-900 border-2 border-slate-800 flex flex-col items-center justify-center font-mono leading-none group-hover/card:border-emerald-700 group-hover/card:scale-105 transition-all duration-700 shadow-inner">
+                                <div className="w-8 h-8 rounded-[36px] bg-slate-900 border-2 border-slate-800 flex flex-col items-center justify-center font-mono leading-none group-hover/card:border-emerald-700 group-hover/card:scale-105 transition-all duration-700 shadow-inner">
                                    <span className="text-3xl text-white font-black leading-none">{s.date.split('-')[2]}</span>
                                    <span className="text-[12px] text-slate-600 font-black uppercase mt-3 tracking-[0.3em]">{s.date.split('-')[1]}</span>
                                 </div>
@@ -994,8 +994,8 @@ const copyToClipboard = () => {
                               </div>
                             </motion.div>
                           )) : (
-                             <div className="p-40 text-center border-4 border-dashed border-slate-800/40 rounded-[80px] bg-slate-950/30 group hover:border-slate-700 transition-all duration-1000">
-                                <HistoryIcon className="w-24 h-24 text-slate-800 mx-auto mb-12 opacity-10 group-hover:scale-110 transition-transform duration-1000" />
+                             <div className="p-6 text-center border-4 border-dashed border-slate-800/40 rounded-[24px] bg-slate-950/30 group hover:border-slate-700 transition-all duration-1000">
+                                <HistoryIcon className="w-8 h-8 text-slate-800 mx-auto mb-12 opacity-10 group-hover:scale-110 transition-transform duration-1000" />
                                 <p className="text-slate-800 text-[18px] font-black uppercase italic tracking-[0.6em] leading-relaxed max-w-sm mx-auto opacity-30">SIN REGISTROS OPERATIVOS EN EL CICLO ACTUAL</p>
                              </div>
                           )}
@@ -1008,7 +1008,7 @@ const copyToClipboard = () => {
                            <div className="p-5 bg-lime-400/10 rounded-[28px] border-2 border-lime-400/10 shadow-[0_0_40px_rgba(163,230,53,0.2)]">
                               <MessageSquare className="w-10 h-10 text-lime-400 shadow-lime-400/20 shadow-2xl" />
                            </div>
-                           <h4 className="text-[24px] font-black uppercase italic text-slate-200 tracking-[0.6em] leading-none mb-0">Staff Direct Control</h4>
+                           <h4 className="text-xs font-black uppercase italic text-slate-200 tracking-[0.6em] leading-none mb-0">Staff Direct Control</h4>
                         </div>
                         
                         <div className="bg-slate-950 p-14 rounded-[70px] border-2 border-slate-800 shadow-[0_50px_100px_rgba(0,0,0,0.8)] relative group overflow-hidden">
@@ -1047,7 +1047,7 @@ const copyToClipboard = () => {
                               className="bg-emerald-950/10 p-12 rounded-[60px] border border-emerald-900/10 relative overflow-hidden border-l-lime-400 border-l-[10px] group hover:bg-emerald-900/10 transition-all duration-700 shadow-3xl"
                             >
                               <div className="absolute top-0 right-0 p-10 opacity-[0.03] group-hover:rotate-[-15deg] rotate-45 transition-transform duration-[1500ms]">
-                                 <MessageSquare className="w-32 h-32 text-white" />
+                                 <MessageSquare className="w-10 h-10 text-white" />
                               </div>
                               <p className="text-[22px] italic text-slate-100 font-medium leading-relaxed relative z-10 group-hover:text-white transition-colors duration-700 tracking-tight leading-snug">"{f.content}"</p>
                               <div className="flex justify-between items-center mt-12 pt-10 border-t border-emerald-900/10 relative z-10">
@@ -1065,7 +1065,7 @@ const copyToClipboard = () => {
                             </motion.div>
                           ))}
                           {feedbackHistory.length === 0 && (
-                            <div className="p-40 text-center bg-slate-950/20 rounded-[80px] border-4 border-dashed border-slate-900/40 opacity-10 group hover:opacity-20 transition-opacity duration-1000">
+                            <div className="p-6 text-center bg-slate-950/20 rounded-[24px] border-4 border-dashed border-slate-900/40 opacity-10 group hover:opacity-20 transition-opacity duration-1000">
                               <MessageSquare className="w-28 h-28 mx-auto mb-12 text-slate-700" />
                               <p className="text-[15px] font-black uppercase tracking-[0.6em] text-slate-700 leading-none">WAITING FOR TECHNICAL ANALYTICS</p>
                             </div>
@@ -1084,7 +1084,7 @@ const copyToClipboard = () => {
       ---------------------------------------------------------------------- */}
       {activeTab === 'wods' && (
         <div className="space-y-16 animate-in fade-in duration-1000 slide-in-from-top-12">
-           <div className="flex flex-col lg:flex-row justify-between lg:items-center gap-16 border-b-4 border-slate-900/50 pb-20">
+           <div className="flex flex-col lg:flex-row justify-between lg:items-center gap-4 border-b-4 border-slate-900/50 pb-20">
               <div className="space-y-8 text-center lg:text-left">
                 <div className="flex items-center justify-center lg:justify-start gap-6">
                    <div className="w-5 h-5 rounded-full bg-emerald-500 shadow-[0_0_25px_rgba(16,185,129,1)] animate-pulse" />
@@ -1142,14 +1142,14 @@ const copyToClipboard = () => {
 
                     <div className="flex-1 space-y-10">
                        {dayWods.map(w => (
-                         <div key={w.id} className="group/wod bg-slate-950/95 p-14 rounded-[64px] border-2 border-slate-900 hover:border-emerald-700/60 transition-all duration-1000 shadow-[inset_0_10px_40px_rgba(0,0,0,0.9)] relative overflow-hidden">
+                         <div key={w.id} className="group/wod bg-slate-950/95 p-14 rounded-2xl border-2 border-slate-900 hover:border-emerald-700/60 transition-all duration-1000 shadow-[inset_0_10px_40px_rgba(0,0,0,0.9)] relative overflow-hidden">
                             <div className="absolute top-0 left-0 w-3 h-full bg-emerald-500 opacity-0 group-hover/wod:opacity-100 transition-opacity duration-[1500ms] shadow-[0_0_40px_rgba(16,185,129,1)]" />
                             <div className="flex items-center justify-between mb-10">
                                <div className={cn("px-8 py-2.5 rounded-2xl text-[12px] font-black uppercase tracking-[0.5em] italic border-2 transition-all duration-1000 group-hover/wod:bg-opacity-30", w.type === 'time' ? "bg-amber-500/5 text-amber-500 border-amber-500/20" : "bg-lime-400/5 text-lime-400 border-lime-400/20")}>
                                   {w.type === 'time' ? 'T_CAP' : 'STRENGTH'}
                                </div>
                             </div>
-                            <h4 className="text-[32px] font-black uppercase italic text-white mb-10 leading-[0.9] line-clamp-2 tracking-tighter font-mono group-hover/wod:text-lime-400 transition-all duration-700 group-hover/wod:scale-105 origin-left">{w.title}</h4>
+                            <h4 className="text-sm font-black uppercase italic text-white mb-10 leading-[0.9] line-clamp-2 tracking-tighter font-mono group-hover/wod:text-lime-400 transition-all duration-700 group-hover/wod:scale-105 origin-left">{w.title}</h4>
                             <p className="text-[15px] text-slate-600 italic line-clamp-[12] mb-14 leading-relaxed font-medium group-hover/wod:text-slate-200 transition-colors duration-1000 font-mono opacity-80 group-hover/wod:opacity-100">"{w.description}"</p>
                             
                             <div className="flex gap-12 pt-12 border-t-2 border-slate-900/60 opacity-0 group-hover/wod:opacity-100 transition-all translate-y-10 group-hover/wod:translate-y-0 duration-[1000ms]">
@@ -1192,21 +1192,21 @@ const copyToClipboard = () => {
       ---------------------------------------------------------------------- */}
       {activeTab === 'leaderboard' && (
         <div className="space-y-16 animate-in fade-in duration-1000 zoom-in-95">
-          <div className="bg-slate-900 rounded-[100px] p-28 border-2 border-slate-800 shadow-[0_120px_240px_rgba(0,0,0,0.9)] relative overflow-hidden">
-            <div className="absolute top-0 right-0 p-40 opacity-[0.06] pointer-events-none rotate-12 scale-125">
+          <div className="bg-slate-900 rounded-[24px] p-28 border-2 border-slate-800 shadow-[0_120px_240px_rgba(0,0,0,0.9)] relative overflow-hidden">
+            <div className="absolute top-0 right-0 p-6 opacity-[0.06] pointer-events-none rotate-12 scale-125">
                <Trophy className="w-[800px] h-[800px] text-white" />
             </div>
             
-            <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-20 mb-32 relative z-10">
+            <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-4 mb-32 relative z-10">
                <div className="space-y-12">
                   <div className="flex items-center gap-8">
                      <Trophy className="w-16 h-16 text-lime-400 drop-shadow-[0_0_40px_rgba(163,230,53,0.7)]" />
                      <p className="text-lime-400 text-[16px] font-black uppercase tracking-[1em] italic leading-none">Box Performance Archive v3</p>
                   </div>
-                  <h3 className="text-[10rem] font-black italic uppercase tracking-tighter text-white leading-[0.7] mb-0 group-hover:text-emerald-400 transition-colors duration-1000">
+                  <h3 className="text-5xl font-black italic uppercase tracking-tighter text-white leading-[0.7] mb-0 group-hover:text-emerald-400 transition-colors duration-1000">
                     Rank <span className="text-lime-400 italic underline decoration-lime-950/60 decoration-[25px] underline-offset-[30px]">Archive</span>
                   </h3>
-                  <p className="text-[20px] text-slate-600 font-bold uppercase tracking-[0.4em] mt-16 leading-relaxed max-w-4xl italic opacity-80">
+                  <p className="text-[10px] text-slate-600 font-bold uppercase tracking-[0.4em] mt-16 leading-relaxed max-w-4xl italic opacity-80">
                      Base de datos histórica de competencia sistémica. Seleccione el entrenamiento operativo para desglosar la jerarquía de resultados del ciclo actual.
                   </p>
                </div>
@@ -1243,9 +1243,9 @@ const copyToClipboard = () => {
                 />
               </motion.div>
             ) : (
-              <div className="py-80 text-center flex flex-col items-center justify-center border-8 border-dashed border-slate-900/60 rounded-[100px] bg-slate-950/40 group hover:border-slate-800 transition-all duration-[2000ms]">
+              <div className="py-80 text-center flex flex-col items-center justify-center border-8 border-dashed border-slate-900/60 rounded-[24px] bg-slate-950/40 group hover:border-slate-800 transition-all duration-[2000ms]">
                 <div className="w-40 h-40 bg-slate-900 rounded-[60px] flex items-center justify-center mb-16 border-4 border-slate-800 shadow-[0_60px_120px_rgba(0,0,0,1)] group-hover:scale-[1.25] group-hover:rotate-12 transition-all duration-[1500ms]">
-                   <Trophy className="w-20 h-20 text-slate-800 group-hover:text-emerald-900 transition-colors duration-1000" />
+                   <Trophy className="w-6 h-6 text-slate-800 group-hover:text-emerald-900 transition-colors duration-1000" />
                 </div>
                 <p className="font-black uppercase italic text-3xl tracking-[1em] text-slate-800 animate-pulse text-center leading-loose">
                   SELECT TARGET WORKOUT TO DECRYPT RANKING DATA
@@ -1261,8 +1261,8 @@ const copyToClipboard = () => {
       ---------------------------------------------------------------------- */}
       {activeTab === 'team' && (
         <div className="space-y-16 animate-in fade-in duration-1000 slide-in-from-bottom-12">
-           <div className="bg-slate-900 rounded-[100px] p-24 border-2 border-slate-800 shadow-[0_100px_200px_rgba(0,0,0,0.8)] relative overflow-hidden">
-              <div className="flex flex-col md:flex-row justify-between md:items-center gap-16 mb-32 relative z-10">
+           <div className="bg-slate-900 rounded-[24px] p-5 border-2 border-slate-800 shadow-[0_100px_200px_rgba(0,0,0,0.8)] relative overflow-hidden">
+              <div className="flex flex-col md:flex-row justify-between md:items-center gap-4 mb-32 relative z-10">
                  <div className="space-y-10">
                     <div className="flex items-center gap-8">
                        <div className="p-5 bg-amber-500/10 rounded-[30px] border-2 border-amber-500/20 shadow-3xl">
@@ -1284,12 +1284,12 @@ const copyToClipboard = () => {
                   <motion.div 
                     initial={{ opacity: 0, x: -100 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: i * 0.08 }}
                     key={u.uid} 
-                    className="flex flex-col md:flex-row md:items-center justify-between p-16 bg-slate-950/95 rounded-[80px] border-4 border-slate-900 hover:border-amber-900/50 hover:bg-slate-900/80 transition-all duration-1000 group shadow-[0_60px_120px_rgba(0,0,0,0.8)] gap-16 shadow-black"
+                    className="flex flex-col md:flex-row md:items-center justify-between p-4 bg-slate-950/95 rounded-[24px] border-4 border-slate-900 hover:border-amber-900/50 hover:bg-slate-900/80 transition-all duration-1000 group shadow-[0_60px_120px_rgba(0,0,0,0.8)] gap-4 shadow-black"
                   >
-                     <div className="flex items-center gap-16 flex-1">
+                     <div className="flex items-center gap-4 flex-1">
                         <div className="relative group/avatar">
                            <div className="absolute inset-0 bg-amber-500/10 blur-[100px] opacity-0 group-hover/avatar:opacity-100 transition-opacity duration-[2000ms]" />
-                           <img src={u.photoURL || `https://api.dicebear.com/7.x/avataaars/svg?seed=${u.uid}`} className="w-40 h-40 rounded-[60px] border-[8px] border-slate-800 group-hover/avatar:scale-[1.15] group-hover/avatar:border-amber-500/60 transition-all duration-[1200ms] shadow-3xl relative z-10 object-cover" alt="" />
+                           <img src={u.photoURL || `https://api.dicebear.com/7.x/avataaars/svg?seed=${u.uid}`} className="w-40 h-40 rounded-[60px] border-2 border-slate-800 group-hover/avatar:scale-[1.15] group-hover/avatar:border-amber-500/60 transition-all duration-[1200ms] shadow-3xl relative z-10 object-cover" alt="" />
                            <div className={cn(
                               "absolute -top-6 -left-6 px-8 py-3 rounded-[24px] text-[14px] font-black uppercase italic border-[6px] border-slate-950 shadow-[0_30px_60px_rgba(0,0,0,1)] z-20 transition-all group-hover/avatar:-rotate-12 duration-700", 
                               u.role === 'coach' ? "bg-amber-500 text-slate-950 shadow-amber-500/30" : "bg-slate-800 text-slate-400"
@@ -1341,9 +1341,9 @@ const copyToClipboard = () => {
       ---------------------------------------------------------------------- */}
       {activeTab === 'profile' && (
         <div className="space-y-16 animate-in fade-in duration-1000 slide-in-from-bottom-10">
-          <div className="bg-slate-900 rounded-[100px] p-28 border-2 border-slate-800 shadow-[0_120px_240px_rgba(0,0,0,0.9)] relative overflow-hidden text-white flex flex-col items-center text-center">
+          <div className="bg-slate-900 rounded-[24px] p-28 border-2 border-slate-800 shadow-[0_120px_240px_rgba(0,0,0,0.9)] relative overflow-hidden text-white flex flex-col items-center text-center">
             
-            <div className="absolute top-0 right-0 p-32 opacity-[0.05] pointer-events-none rotate-45 scale-[2]">
+            <div className="absolute top-0 right-0 p-6 opacity-[0.05] pointer-events-none rotate-45 scale-[2]">
                <Settings className="w-96 h-96 text-white" />
             </div>
 
@@ -1352,12 +1352,12 @@ const copyToClipboard = () => {
                   <div className="w-4 h-16 bg-lime-400 rounded-full shadow-[0_0_30px_rgba(163,230,53,0.8)]" />
                   <h3 className="text-[7rem] font-black italic uppercase tracking-tighter leading-none italic mb-0">Staff <span className="text-lime-400 italic underline decoration-lime-950/60 decoration-[15px] underline-offset-[25px]">Identity</span></h3>
                </div>
-               <p className="text-[20px] text-slate-600 font-bold uppercase tracking-[1em] italic opacity-60">Personal Terminal Configuration v3.0</p>
+               <p className="text-[10px] text-slate-600 font-bold uppercase tracking-[1em] italic opacity-60">Personal Terminal Configuration v3.0</p>
             </div>
 
             <div className="relative group mb-24 z-10">
                <div className="absolute inset-0 bg-lime-400/20 blur-[150px] opacity-0 group-hover:opacity-40 transition-opacity duration-[2000ms]" />
-               <img src={ownProfileData.photoURL || `https://api.dicebear.com/7.x/avataaars/svg?seed=${profile?.uid}`} className="w-80 h-80 rounded-[90px] border-[12px] border-slate-800 shadow-[0_60px_120px_rgba(0,0,0,1)] object-cover group-hover:scale-[1.1] group-hover:rotate-[3deg] transition-all duration-[1500ms] relative z-10 shadow-black" alt="" />
+               <img src={ownProfileData.photoURL || `https://api.dicebear.com/7.x/avataaars/svg?seed=${profile?.uid}`} className="w-80 h-80 rounded-[90px] border-2 border-slate-800 shadow-[0_60px_120px_rgba(0,0,0,1)] object-cover group-hover:scale-[1.1] group-hover:rotate-[3deg] transition-all duration-[1500ms] relative z-10 shadow-black" alt="" />
                <div className="absolute -bottom-10 -right-10 bg-lime-400 text-black p-10 rounded-[50px] shadow-[0_40px_80px_rgba(163,230,53,0.6)] z-20 hover:rotate-[20deg] hover:scale-125 transition-all duration-700 cursor-pointer border-8 border-slate-900">
                   <UserCircle className="w-14 h-14" />
                </div>
@@ -1378,7 +1378,7 @@ const copyToClipboard = () => {
                     value={ownProfileData.photoURL} 
                     onChange={e => setOwnProfileData({...ownProfileData, photoURL: e.target.value})} 
                     placeholder="HTTPS://SOURCE-IMAGE.JPG" 
-                    className="w-full bg-slate-950/80 border-4 border-slate-800 rounded-[56px] p-12 text-[20px] font-black italic text-slate-400 outline-none focus:border-lime-500 transition-all duration-700 shadow-[inset_0_20px_60px_rgba(0,0,0,1)] tracking-[0.4em] font-mono" 
+                    className="w-full bg-slate-950/80 border-4 border-slate-800 rounded-[56px] p-12 text-[10px] font-black italic text-slate-400 outline-none focus:border-lime-500 transition-all duration-700 shadow-[inset_0_20px_60px_rgba(0,0,0,1)] tracking-[0.4em] font-mono" 
                  />
               </div>
               <button 
@@ -1408,13 +1408,13 @@ const copyToClipboard = () => {
                transition={{ type: 'spring', damping: 35, stiffness: 120 }}
                className="bg-slate-900 p-8 md:p-12 rounded-3xl w-full max-w-3xl border-4 border-slate-800 shadow-[0_100px_200px_rgba(0,0,0,1)] relative overflow-hidden" 
              >
-                <div className="absolute -top-32 -left-32 p-40 opacity-[0.02] pointer-events-none rotate-[25deg]">
+                <div className="absolute -top-6 -left-32 p-6 opacity-[0.02] pointer-events-none rotate-[25deg]">
                    <Calendar className="w-[800px] h-[800px] text-white" />
                 </div>
 
                 <button 
                    onClick={() => setShowWodForm(false)} 
-                   className="absolute top-20 right-20 text-slate-700 hover:text-white transition-all bg-slate-950 p-8 rounded-full border-4 border-slate-800 z-50 group hover:rotate-180 duration-[2000ms] shadow-3xl"
+                   className="absolute top-4 right-20 text-slate-700 hover:text-white transition-all bg-slate-950 p-8 rounded-full border-4 border-slate-800 z-50 group hover:rotate-180 duration-[2000ms] shadow-3xl"
                 >
                    <Repeat className="w-14 h-14 rotate-45 group-hover:scale-[1.4] transition-transform duration-1000" />
                 </button>
@@ -1431,7 +1431,7 @@ const copyToClipboard = () => {
                 </div>
                 
                 <div className="space-y-16 relative z-10">
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-16">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                      <div className="space-y-8">
                         <label className="text-[16px] font-black uppercase text-slate-500 ml-12 italic tracking-[0.6em] leading-none">Operational Target Date</label>
                         <input 
@@ -1486,7 +1486,7 @@ const copyToClipboard = () => {
                      </button>
                      <button 
                         onClick={handleWodSubmit} 
-                        className="flex-[2] bg-emerald-700 text-white py-12 rounded-[56px] text-[20px] font-black uppercase tracking-[1em] shadow-[0_50px_100px_rgba(4,120,87,0.7)] active:scale-95 transition-all duration-[1200ms] border-8 border-emerald-500/20 italic group-hover:bg-emerald-600 shadow-black"
+                        className="flex-[2] bg-emerald-700 text-white py-12 rounded-[56px] text-[10px] font-black uppercase tracking-[1em] shadow-[0_50px_100px_rgba(4,120,87,0.7)] active:scale-95 transition-all duration-[1200ms] border-8 border-emerald-500/20 italic group-hover:bg-emerald-600 shadow-black"
                      >
                         {editingWod ? 'COMMIT_DATA' : 'PUBLISH_TERMINAL'}
                      </button>
@@ -1507,14 +1507,14 @@ const copyToClipboard = () => {
             className="fixed bottom-48 left-4 right-4 z-[250] flex justify-center pointer-events-none"
           >
             <div className={cn(
-               "px-20 py-12 rounded-[60px] shadow-[0_60px_150px_rgba(0,0,0,1)] flex items-center gap-16 border-4 backdrop-blur-[100px] transition-all duration-[1500ms]",
+               "px-20 py-12 rounded-[60px] shadow-[0_60px_150px_rgba(0,0,0,1)] flex items-center gap-4 border-4 backdrop-blur-[100px] transition-all duration-[1500ms]",
                toast.type === 'success' ? "bg-emerald-950/90 border-emerald-500/50 text-white shadow-emerald-500/10" : "bg-red-950/90 border-red-500/50 text-white shadow-red-500/10"
             )}>
                <div className={cn("p-8 rounded-full shadow-[0_0_60px_rgba(0,0,0,0.8)] transition-all duration-1000 rotate-12 hover:rotate-0", toast.type === 'success' ? "bg-lime-400 shadow-lime-400/40" : "bg-red-500 shadow-red-500/40")}>
                   {toast.type === 'success' ? <CheckCircle2 className="w-12 h-12 text-black" /> : <ShieldAlert className="w-12 h-12 text-black" />}
                </div>
                <div className="flex flex-col space-y-5 text-left">
-                  <span className="text-[32px] font-black uppercase italic tracking-[0.4em] leading-none mb-2">{toast.message}</span>
+                  <span className="text-sm font-black uppercase italic tracking-[0.4em] leading-none mb-2">{toast.message}</span>
                   <div className="flex items-center gap-6">
                      <div className="w-14 h-[4px] bg-white/20 rounded-full" />
                      <span className="text-[12px] text-white/40 font-bold uppercase tracking-[1em] leading-none font-mono">System Intel Protocol v3.0_OK</span>
