@@ -5,7 +5,7 @@ import { collection, query, where, orderBy, limit, onSnapshot, addDoc, serverTim
 import { WellnessEntry, Wod, WorkoutSession, CoachFeedback, UserProfile, Benchmark } from '@/src/types';
 import { handleFirestoreError, OperationType } from '@/src/lib/firebase';
 import { motion, AnimatePresence } from 'motion/react';
-import { Star, MessageSquare, ChevronRight, CheckCircle2, Activity, Zap, Info, Clock, Weight, Repeat, TrendingUp, Dumbbell, Trophy, Medal, History as HistoryIcon, ClipboardList, Pencil, Check, Calculator, X, Plus, ArrowUpRight } from 'lucide-react';
+import { Star, MessageSquare, ChevronRight, CheckCircle2, Activity, Zap, Info, Clock, Weight, Repeat, TrendingUp, Dumbbell, Trophy, Medal, History as HistoryIcon, ClipboardList, Pencil, Check, Calculator, X, Plus, ArrowUpRight, BarChart3 } from 'lucide-react';
 import { cn, formatDate, getTodayDate, parseScoreToNumber } from '@/src/lib/utils';
 import { generateCoachRecommendation } from '@/src/services/gemini';
 
