@@ -323,6 +323,12 @@ export default function CoachView({ activeTab: propsTab, onTabChange }: CoachVie
   const [todayWellness, setTodayWellness] = useState<Record<string, WellnessEntry>>({});
   const [searchTerm, setSearchTerm] = useState('');
   const [adviceText, setAdviceText] = useState('');
+  useEffect(() => {
+    if (toast) {
+      const timer = setTimeout(() => setToast(null), 3000);
+      return () => clearTimeout(timer);
+    }
+  }, [toast]);
   const [copied, setCopied] = useState(false);
   
   // Perfil del Coach (Staff Self-Management)
@@ -1402,57 +1408,49 @@ const copyToClipboard = () => {
           GLOBAL MODALS: WOD BUILDER TERMINAL
       ====================================================================== */}
       
-      <AnimatePresence>
+<AnimatePresence>
         {showWodForm && (
           <motion.div 
             initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} 
-            className="fixed inset-0 z-[100] flex items-center justify-center p-12 bg-slate-950/98 backdrop-blur-[60px]"
+            className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6 bg-slate-950/98 backdrop-blur-xl"
           >
              <motion.div 
-               initial={{ scale: 0.6, opacity: 0, y: 150 }} 
+               initial={{ scale: 0.9, opacity: 0, y: 30 }} 
                animate={{ scale: 1, opacity: 1, y: 0 }} 
                transition={{ type: 'spring', damping: 35, stiffness: 120 }}
-               className="bg-slate-900 p-8 md:p-12 rounded-3xl w-full max-w-3xl border-4 border-slate-800 shadow-[0_100px_200px_rgba(0,0,0,1)] relative overflow-hidden" 
+               className="bg-slate-900 p-8 sm:p-12 rounded-[40px] w-full max-w-3xl max-h-[90vh] overflow-y-auto border-4 border-slate-800 shadow-2xl relative scrollbar-hide" 
              >
-                <div className="absolute -top-6 -left-32 p-6 opacity-[0.02] pointer-events-none rotate-[25deg]">
-                   <Calendar className="w-[800px] h-[800px] text-white" />
-                </div>
-
                 <button 
                    onClick={() => setShowWodForm(false)} 
-                   className="absolute top-4 right-20 text-slate-700 hover:text-white transition-all bg-slate-950 p-8 rounded-full border-4 border-slate-800 z-50 group hover:rotate-180 duration-[2000ms] shadow-3xl"
+                   className="absolute top-6 right-6 sm:top-10 sm:right-10 text-slate-700 hover:text-white transition-all bg-slate-950 p-3 sm:p-4 rounded-full border-2 border-slate-800 z-50 group hover:rotate-180 duration-700"
                 >
-                   <Repeat className="w-14 h-14 rotate-45 group-hover:scale-[1.4] transition-transform duration-1000" />
+                   <Repeat className="w-5 h-5 sm:w-6 sm:h-6 rotate-45 group-hover:scale-110 transition-transform" />
                 </button>
                 
-                <div className="text-center mb-32 space-y-10 relative z-10">
-                   <h3 className="text-5xl md:text-6xl font-black italic uppercase text-white tracking-tighter leading-none mb-0 group">
+                <div className="text-center mb-10 space-y-3 relative z-10">
+                   <h3 className="text-4xl sm:text-5xl font-black italic uppercase text-white tracking-tighter leading-none mb-0 group">
                       {editingWod ? 'Update' : 'Schedule'} <span className="text-emerald-500 italic">Workout</span>
                    </h3>
-                   <div className="flex items-center justify-center gap-8">
-                      <div className="h-0.5 w-24 bg-slate-800" />
-                      <p className="text-[18px] text-slate-600 font-bold uppercase tracking-[1em] italic leading-none">System_Protocol v2.5_WOD_HUB</p>
-                      <div className="h-0.5 w-24 bg-slate-800" />
-                   </div>
+                   <p className="text-xs text-slate-600 font-bold uppercase tracking-[0.4em] italic leading-none">System_Protocol v2.5_WOD_HUB</p>
                 </div>
                 
-                <div className="space-y-16 relative z-10">
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                     <div className="space-y-8">
-                        <label className="text-[16px] font-black uppercase text-slate-500 ml-12 italic tracking-[0.6em] leading-none">Operational Target Date</label>
+                <div className="space-y-6 relative z-10">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                     <div className="space-y-3">
+                        <label className="text-[10px] font-black uppercase text-slate-500 ml-4 italic tracking-widest leading-none">Operational Target Date</label>
                         <input 
                            type="date" 
                            value={newWod.date} 
                            onChange={e => setNewWod({...newWod, date: e.target.value})} 
-                           className="w-full bg-slate-950/90 border-4 border-slate-800 rounded-xl p-4 text-base text-white outline-none focus:border-emerald-700 transition-all duration-1000 font-black shadow-[inset_0_20px_50px_rgba(0,0,0,1)] tracking-tighter" 
+                           className="w-full bg-slate-950 border-2 border-slate-800 rounded-2xl p-4 text-sm text-white outline-none focus:border-emerald-700 transition-all font-bold shadow-inner" 
                         />
                      </div>
-                     <div className="space-y-8">
-                        <label className="text-[16px] font-black uppercase text-slate-500 ml-12 italic tracking-[0.6em] leading-none">Metric Logic System</label>
+                     <div className="space-y-3">
+                        <label className="text-[10px] font-black uppercase text-slate-500 ml-4 italic tracking-widest leading-none">Metric Logic System</label>
                         <select 
                            value={newWod.type} 
                            onChange={e => setNewWod({...newWod, type: e.target.value})} 
-                           className="w-full bg-slate-950/90 border-4 border-slate-800 rounded-xl p-4 text-base font-black uppercase text-white outline-none focus:border-emerald-700 transition-all duration-1000 shadow-[inset_0_20px_50px_rgba(0,0,0,1)] italic tracking-widest cursor-pointer"
+                           className="w-full bg-slate-950 border-2 border-slate-800 rounded-2xl p-4 text-sm font-black uppercase text-white outline-none focus:border-emerald-700 transition-all shadow-inner italic appearance-none cursor-pointer"
                         >
                            <option value="">-- SELECT LOGIC --</option>
                            <option value="time">FOR TIME (Cronómetro/Velocidad)</option>
@@ -1462,39 +1460,39 @@ const copyToClipboard = () => {
                      </div>
                   </div>
 
-                  <div className="space-y-8">
-                     <label className="text-[16px] font-black uppercase text-slate-500 ml-12 italic tracking-[0.6em] leading-none">Training Identity (WOD Code)</label>
+                  <div className="space-y-3">
+                     <label className="text-[10px] font-black uppercase text-slate-500 ml-4 italic tracking-widest leading-none">Training Identity (WOD Code)</label>
                      <input 
                         placeholder="HERO WORKOUT / BOX CODE..." 
                         value={newWod.title} 
                         onChange={e => setNewWod({...newWod, title: e.target.value})} 
-                        className="w-full bg-slate-950/90 border-4 border-slate-800 rounded-xl p-4 text-xl font-black italic text-white outline-none focus:border-emerald-700 transition-all duration-1000 shadow-[inset_0_20px_50px_rgba(0,0,0,1)] placeholder-slate-900 tracking-tighter" 
+                        className="w-full bg-slate-950 border-2 border-slate-800 rounded-2xl p-4 text-xl font-black italic text-white outline-none focus:border-emerald-700 transition-all shadow-inner placeholder-slate-800 tracking-tighter" 
                      />
                   </div>
 
-                  <div className="space-y-8">
-                     <label className="text-[16px] font-black uppercase text-slate-500 ml-12 italic tracking-[0.6em] leading-none">Technical Breakdown & Flow</label>
+                  <div className="space-y-3">
+                     <label className="text-[10px] font-black uppercase text-slate-500 ml-4 italic tracking-widest leading-none">Technical Breakdown & Flow</label>
                      <textarea 
                         placeholder="DETALLE AQUÍ EL PROTOCOLO DE CARGA, RONDAS, EJERCICIOS Y ESTÁNDARES DE MOVIMIENTO..." 
                         value={newWod.description} 
                         onChange={e => setNewWod({...newWod, description: e.target.value})} 
-                        rows={6} 
-                        className="w-full bg-slate-950/90 border-4 border-slate-800 rounded-2xl p-4 text-base font-medium italic text-slate-300 outline-none focus:border-emerald-700 transition-all duration-[1500ms] leading-relaxed shadow-[inset_0_20px_50px_rgba(0,0,0,1)] placeholder-slate-900" 
+                        rows={5} 
+                        className="w-full bg-slate-950 border-2 border-slate-800 rounded-3xl p-6 text-sm font-medium italic text-slate-300 outline-none focus:border-emerald-700 transition-all leading-relaxed shadow-inner placeholder-slate-800" 
                      />
                   </div>
 
-                  <div className="flex gap-12 pt-20">
+                  <div className="flex gap-4 pt-6">
                      <button 
                         onClick={() => setShowWodForm(false)} 
-                        className="flex-1 py-12 text-[18px] font-black uppercase text-slate-700 hover:text-slate-200 transition-all tracking-[1em] font-black italic hover:scale-105 duration-700"
+                        className="flex-1 py-4 text-xs font-black uppercase text-slate-600 hover:text-slate-300 transition-all tracking-widest italic"
                      >
-                        ABORT_SESSION
+                        ABORT
                      </button>
                      <button 
                         onClick={handleWodSubmit} 
-                        className="flex-[2] bg-emerald-700 text-white py-12 rounded-[56px] text-[10px] font-black uppercase tracking-[1em] shadow-[0_50px_100px_rgba(4,120,87,0.7)] active:scale-95 transition-all duration-[1200ms] border-8 border-emerald-500/20 italic group-hover:bg-emerald-600 shadow-black"
+                        className="flex-[2] bg-emerald-700 text-white py-4 rounded-[20px] text-xs font-black uppercase tracking-widest shadow-xl active:scale-95 transition-all border border-emerald-500/20 italic hover:bg-emerald-600"
                      >
-                        {editingWod ? 'COMMIT_DATA' : 'PUBLISH_TERMINAL'}
+                        {editingWod ? 'COMMIT DATA' : 'PUBLISH TERMINAL'}
                      </button>
                   </div>
                 </div>
@@ -1514,7 +1512,7 @@ const copyToClipboard = () => {
           >
             <div className={cn(
                "px-6 py-4 rounded-3xl shadow-2xl flex items-center gap-4 border backdrop-blur-xl transition-all",
-               toast.type === 'success' ? "bg-emerald-950/95 border-emerald-500/50 text-white shadow-emerald-500/20" : "bg-red-950/95 border-red-500/50 text-white shadow-red-500/20"
+               toast.type === 'success' ? "bg-emerald-950/95 border-emerald-500/50 text-white" : "bg-red-950/95 border-red-500/50 text-white"
             )}>
                <div className={cn("p-2 rounded-full", toast.type === 'success' ? "bg-lime-400" : "bg-red-500")}>
                   {toast.type === 'success' ? <CheckCircle2 className="w-5 h-5 text-black" /> : <ShieldAlert className="w-5 h-5 text-black" />}
