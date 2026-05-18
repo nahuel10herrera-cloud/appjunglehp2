@@ -468,7 +468,11 @@ export default function CoachView({ activeTab: propsTab, onTabChange }: CoachVie
            avg >= 2.5 ? 'bg-amber-400 shadow-[0_0_20px_rgba(251,191,36,0.6)]' : 
            'bg-red-500 shadow-[0_0_20px_rgba(239,68,68,0.6)]';
   };
-
+const copyToClipboard = () => {
+    navigator.clipboard.writeText(window.location.href);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 3000);
+  };
   const todayWod = useMemo(() => wods.find(w => w.date === getTodayDate()), [wods]);
   const filteredAthletes = athletes.filter(a => a.displayName.toLowerCase().includes(searchTerm.toLowerCase()));
 
