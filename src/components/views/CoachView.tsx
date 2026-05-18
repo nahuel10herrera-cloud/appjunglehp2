@@ -273,6 +273,8 @@ export default function CoachView({ activeTab: propsTab, onTabChange }: CoachVie
   };
 
   const todayWodNode = useMemo(() => wods.find(w => w.date === getTodayDate()), [wods]);
+  
+  const filteredAthletes = athletes.filter(a => a.displayName?.toLowerCase().includes(searchTerm.toLowerCase()));
 
   return (
     <div className="space-y-6 max-w-7xl mx-auto px-4 pb-32 pt-6 selection:bg-emerald-500 selection:text-white">
