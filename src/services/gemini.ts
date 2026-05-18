@@ -11,7 +11,6 @@ const genAI = new GoogleGenerativeAI(apiKey || "");
 
 export const generateCoachRecommendation = async (wellnessData: any, lastSessionData?: any) => {
   try {
-    // Usamos el modelo rápido y gratuito de la nueva versión
     const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 
     const prompt = `
@@ -31,9 +30,12 @@ export const generateCoachRecommendation = async (wellnessData: any, lastSession
       4. Si está óptimo, exigile que vaya pesado.
     `;
 
+    // ACÁ ESTÁ EL CAMBIO PARA LA VERSIÓN NUEVA (0.21.0)
     const result = await model.generateContent(prompt);
-    const response = await result.response;
-    return response.text();
+    
+    // Leemos el texto directamente de result.response
+    const text = result.response.text();
+    return text;
 
   } catch (error) {
     console.error("Error al conectar con el Coach Virtual (Gemini):", error);
