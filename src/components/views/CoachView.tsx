@@ -150,7 +150,19 @@ function PerformanceChart({ data }: { data: WorkoutSession[] }) {
     </div>
   );
 }
+const weekDays = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'];
+const { start: weekStart, end: weekEnd } = getWeekRange();
 
+const weekDates = useMemo(() => {
+  return Array.from({ length: 7 }, (_, i) => {
+    const d = new Date(weekStart + 'T00:00:00');
+    d.setDate(d.getDate() + i);
+    return d.toISOString().split('T')[0];
+  });
+}, [weekStart]);
+
+// Esta constante evita que la pantalla se ponga en negro si no hay WOD hoy
+const todayWod = useMemo(() => wods.find(w => w.date === getTodayDate()), [wods]);
 /**
  * WodRanking: El motor de competencia del Box.
  */
