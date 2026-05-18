@@ -1,35 +1,42 @@
 import { GoogleGenerativeAI } from "@google/generative-ai";
-import { WellnessEntry, WorkoutSession } from "@/src/types";
 
-// IMPORTANTE: Vite necesita el prefijo VITE_ para poder leer la llave
-const API_KEY = import.meta.env.VITE_GEMINI_API_KEY || ""; 
+// Inicializamos la IA con tu clave del .env
+const apiKey = import.meta.env.VITE_GEMINI_API_KEY || process.env.NEXT_PUBLIC_GEMINI_API_KEY;
 
-const genAI = new GoogleGenerativeAI(API_KEY);
+if (!apiKey) {
+  console.error("⚠️ Falta la API Key de Gemini en las variables de entorno.");
+}
 
-export async function generateCoachRecommendation(
-  wellness: WellnessEntry,
-  session?: WorkoutSession
-): Promise<string> {
-  const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
-  
-  const prompt = `
-    Eres un coach experto de CrossFit de "Jungle HP". 
-    Analiza estos datos y da una recomendación breve (máximo 3 párrafos).
-    
-    BIENESTAR: Sueño ${wellness.sleepQuality}/5, Estrés ${wellness.stressLevel}/5, Dieta ${wellness.nutrition}/5.
-    NOTAS: ${wellness.notes || 'Ninguna'}.
-    ${session ? `ÚLTIMO ENTRENO: Score ${session.score}, RPE ${session.rpe}/10.` : ''}
-    
-    Dime si debe entrenar a tope, escalar o descansar. Responde en español.
-  `;
+const genAI = new GoogleGenerativeAI(apiKey || "");
 
+export const generateCoachRecommendation = async (wellnessData: any, lastSessionData?: any) => {
   try {
-    if (!API_KEY) throw new Error("API Key no configurada");
+    // Usamos el modelo rápido y gratuito de la nueva versión
+    const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+
+    const prompt = `
+      Sos un Head Coach de Crossfit estricto, motivador y muy técnico.
+      Analizá estos datos del atleta de HOY:
+      - Horas de sueño: ${wellnessData?.sleepQuality || 'No registrado'} / 5
+      - Alimentación: ${wellnessData?.nutrition || 'No registrado'} / 5
+      - Nivel de estrés: ${wellnessData?.stressLevel || 'No registrado'} / 5
+      
+      Última sesión (WOD anterior):
+      - Esfuerzo (RPE): ${lastSessionData?.rpe || 'No registrado'} / 10
+      
+      Reglas de tu respuesta:
+      1. Dame un consejo de entrenamiento de máximo 3 renglones.
+      2. Sé directo, usá jerga de Crossfit (WOD, RM, AMRAP, etc).
+      3. Si durmió mal o comió mal, decile que baje las cargas o priorice técnica.
+      4. Si está óptimo, exigile que vaya pesado.
+    `;
+
     const result = await model.generateContent(prompt);
     const response = await result.response;
     return response.text();
+
   } catch (error) {
-    console.error("Gemini Error:", error);
-    return "El coach está analizando tus datos... (Error de conexión)";
+    console.error("Error al conectar con el Coach Virtual (Gemini):", error);
+    return "🔥 EL RADAR ESTÁ INTERFERIDO. ENFOCATE EN LA TÉCNICA Y ESCUCHÁ A TU CUERPO HOY.";
   }
-}
+};
