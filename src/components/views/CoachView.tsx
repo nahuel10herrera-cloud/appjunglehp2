@@ -307,6 +307,12 @@ export default function CoachView({ activeTab: propsTab, onTabChange }: CoachVie
   const [selectedAthlete, setSelectedAthlete] = useState<UserProfile | null>(null);
   const [athleteData, setAthleteData] = useState<{ wellness: WellnessEntry[], sessions: WorkoutSession[] }>({ wellness: [], sessions: [] });
   const [toast, setToast] = useState<{message: string, type: 'success' | 'error'} | null>(null);
+  useEffect(() => {
+    if (toast) {
+      const timer = setTimeout(() => setToast(null), 3000);
+      return () => clearTimeout(timer);
+    }
+  }, [toast]);
   const [feedbackHistory, setFeedbackHistory] = useState<CoachFeedback[]>([]);
   const [recentSessions, setRecentSessions] = useState<(WorkoutSession & { athleteName?: string })[]>([]);
   const [wods, setWods] = useState<Wod[]>([]);
@@ -1082,88 +1088,88 @@ const copyToClipboard = () => {
       {/* ----------------------------------------------------------------------
           PESTAÑA 4: PROGRAMACIÓN (CALENDARIO SEMANAL & CRUD)
       ---------------------------------------------------------------------- */}
-      {activeTab === 'wods' && (
-        <div className="space-y-16 animate-in fade-in duration-1000 slide-in-from-top-12">
-           <div className="flex flex-col lg:flex-row justify-between lg:items-center gap-4 border-b-4 border-slate-900/50 pb-20">
-              <div className="space-y-8 text-center lg:text-left">
-                <div className="flex items-center justify-center lg:justify-start gap-6">
-                   <div className="w-5 h-5 rounded-full bg-emerald-500 shadow-[0_0_25px_rgba(16,185,129,1)] animate-pulse" />
-                   <p className="text-emerald-500 text-[14px] font-black uppercase tracking-[0.8em] italic leading-none">Staff Programming Protocol v2.5</p>
+     {activeTab === 'wods' && (
+        <div className="space-y-6 animate-in fade-in duration-500 slide-in-from-top-4">
+           <div className="flex flex-col lg:flex-row justify-between lg:items-center gap-6 border-b border-slate-800/50 pb-6">
+              <div className="space-y-2 text-center lg:text-left">
+                <div className="flex items-center justify-center lg:justify-start gap-2">
+                   <div className="w-2 h-2 rounded-full bg-emerald-500 shadow-[0_0_10px_rgba(16,185,129,1)] animate-pulse" />
+                   <p className="text-emerald-500 text-[10px] font-black uppercase tracking-widest italic leading-none">Staff Programming Protocol v2.5</p>
                 </div>
-                <h3 className="text-4xl md:text-5xl font-black italic uppercase text-white tracking-tighter leading-none flex flex-wrap justify-center lg:justify-start items-center gap-12">
-                  WOD <span className="text-emerald-500 underline underline-offset-[25px] decoration-[20px] decoration-emerald-950/70 italic">Schedule</span>
+                <h3 className="text-4xl font-black italic uppercase text-white tracking-tighter leading-none flex flex-wrap justify-center lg:justify-start items-center gap-4">
+                  WOD <span className="text-emerald-500 underline underline-offset-8 decoration-4 decoration-emerald-950/70 italic">Schedule</span>
                 </h3>
-                <div className="bg-slate-900/70 p-8 rounded-[36px] border-2 border-slate-800/50 inline-block backdrop-blur-3xl shadow-[0_30px_60px_rgba(0,0,0,0.6)] group">
-                   <p className="text-xs text-slate-500 font-black uppercase tracking-widest leading-none italic flex items-center gap-6 group-hover:text-white transition-colors duration-700">
-                      <Calendar className="w-8 h-8 text-emerald-500 group-hover:rotate-12 transition-transform" /> RANGO_SEM: {formatDate(weekStart).split(',')[1]} — {formatDate(weekEnd).split(',')[1]}
+                <div className="bg-slate-900/70 p-3 rounded-2xl border border-slate-800/50 inline-block backdrop-blur-md">
+                   <p className="text-xs text-slate-500 font-black uppercase tracking-widest leading-none italic flex items-center gap-2">
+                      <Calendar className="w-4 h-4 text-emerald-500" /> SEMANA: {formatDate(weekStart).split(',')[1]} — {formatDate(weekEnd).split(',')[1]}
                    </p>
                 </div>
               </div>
               <button 
                 onClick={() => { setEditingWod(null); setNewWod({ title: '', description: '', type: '', date: getTodayDate() }); setShowWodForm(true); }} 
-                className="bg-emerald-700 text-white px-6 py-4 rounded-2xl text-sm font-black uppercase flex items-center gap-10 hover:bg-emerald-600 active:scale-95 transition-all shadow-[0_50px_100px_rgba(4,120,87,0.5)] border-4 border-emerald-500/20 group relative z-10 italic"
+                className="bg-emerald-700 text-white px-6 py-3 rounded-2xl text-xs font-black uppercase flex items-center gap-3 hover:bg-emerald-600 active:scale-95 transition-all shadow-xl border border-emerald-500/20 group relative z-10 italic"
               >
-                <div className="bg-emerald-950 p-4 rounded-[24px] group-hover:rotate-180 transition-transform duration-1000 shadow-2xl border-2 border-emerald-800/50">
-                   <Plus className="w-10 h-10" />
+                <div className="bg-emerald-950 p-1.5 rounded-lg group-hover:rotate-180 transition-transform duration-500 border border-emerald-800/50">
+                   <Plus className="w-4 h-4" />
                 </div>
-                AGREGAR SESIÓN DE CARGA
+                AGREGAR SESIÓN
               </button>
            </div>
 
            {/* 7-DAY TACTICAL GRID */}
-           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-14">
+           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
              {weekDates.map((date, idx) => {
                const dayWods = wods.filter(w => w.date === date);
                const isToday = date === getTodayDate();
                return (
                  <motion.div 
-                    initial={{ opacity: 0, y: 50 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: idx * 0.1 }}
+                    initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: idx * 0.05 }}
                     key={date} 
                     className={cn(
-                        "bg-slate-900/40 p-8 rounded-[40px] border transition-all duration-1000 flex flex-col h-full min-h-[400px] backdrop-blur-3xl relative group shadow-[0_40px_80px_rgba(0,0,0,0.5)]",
-                        isToday ? "border-emerald-500/50 bg-slate-900/90 shadow-[0_80px_160px_rgba(0,0,0,0.8)] ring-4 ring-emerald-500/10 scale-105 z-30" : "border-slate-800 shadow-black hover:border-slate-600 hover:bg-slate-900/60"
+                        "bg-slate-900/40 p-6 rounded-3xl border transition-all duration-500 flex flex-col h-full min-h-[350px] backdrop-blur-md relative group",
+                        isToday ? "border-emerald-500/50 bg-slate-900/90 shadow-2xl ring-2 ring-emerald-500/20 scale-105 z-30" : "border-slate-800 hover:border-slate-600 hover:bg-slate-900/60"
                     )}
                  >
                     {isToday && (
-                       <div className="absolute top-14 right-14">
-                          <div className="px-4 py-1.5 rounded-xl bg-emerald-500 text-black text-[9px] font-black uppercase italic tracking-[0.4em] shadow-[0_20px_40px_rgba(16,185,129,0.6)] animate-bounce border-2 border-emerald-400">
+                       <div className="absolute top-4 right-4">
+                          <div className="px-3 py-1 rounded-full bg-emerald-500 text-black text-[9px] font-black uppercase italic tracking-widest shadow-lg animate-bounce border border-emerald-400">
                              ACTIVE TODAY
                           </div>
                        </div>
                     )}
-                    <div className="mb-24 text-center relative group/title">
-                       <p className={cn("text-lg font-black uppercase mb-2 italic tracking-widest leading-none transition-all duration-1000 group-hover/title:tracking-[0.6em]", isToday ? "text-emerald-400" : "text-slate-600 group-hover/title:text-slate-300")}>
+                    <div className="mb-6 text-center relative">
+                       <p className={cn("text-lg font-black uppercase mb-1 italic tracking-widest leading-none", isToday ? "text-emerald-400" : "text-slate-500 group-hover:text-slate-300")}>
                           {weekDays[idx]}
                        </p>
-                       <p className="text-xs font-mono text-slate-500 font-black opacity-60 tracking-widest group-hover:opacity-100 transition-opacity duration-1000 leading-none">
+                       <p className="text-[10px] font-mono text-slate-600 font-bold tracking-widest">
                           {date.split('-').reverse().slice(0,2).join('.').toUpperCase()}
                        </p>
                     </div>
 
-                    <div className="flex-1 space-y-10">
+                    <div className="flex-1 space-y-4">
                        {dayWods.map(w => (
-                         <div key={w.id} className="group/wod bg-slate-950/95 p-14 rounded-2xl border-2 border-slate-900 hover:border-emerald-700/60 transition-all duration-1000 shadow-[inset_0_10px_40px_rgba(0,0,0,0.9)] relative overflow-hidden">
-                            <div className="absolute top-0 left-0 w-3 h-full bg-emerald-500 opacity-0 group-hover/wod:opacity-100 transition-opacity duration-[1500ms] shadow-[0_0_40px_rgba(16,185,129,1)]" />
-                            <div className="flex items-center justify-between mb-10">
-                               <div className={cn("px-8 py-2.5 rounded-2xl text-[12px] font-black uppercase tracking-[0.5em] italic border-2 transition-all duration-1000 group-hover/wod:bg-opacity-30", w.type === 'time' ? "bg-amber-500/5 text-amber-500 border-amber-500/20" : "bg-lime-400/5 text-lime-400 border-lime-400/20")}>
+                         <div key={w.id} className="group/wod bg-slate-950/90 p-5 rounded-2xl border border-slate-800 hover:border-emerald-700/60 transition-all shadow-inner relative overflow-hidden">
+                            <div className="absolute top-0 left-0 w-1 h-full bg-emerald-500 opacity-0 group-hover/wod:opacity-100 transition-opacity" />
+                            <div className="flex items-center justify-between mb-3">
+                               <div className={cn("px-2 py-1 rounded-md text-[9px] font-black uppercase tracking-widest italic border", w.type === 'time' ? "bg-amber-500/10 text-amber-500 border-amber-500/20" : "bg-lime-400/10 text-lime-400 border-lime-400/20")}>
                                   {w.type === 'time' ? 'T_CAP' : 'STRENGTH'}
                                </div>
                             </div>
-                            <h4 className="text-sm font-black uppercase italic text-white mb-10 leading-[0.9] line-clamp-2 tracking-tighter font-mono group-hover/wod:text-lime-400 transition-all duration-700 group-hover/wod:scale-105 origin-left">{w.title}</h4>
-                            <p className="text-[15px] text-slate-600 italic line-clamp-[12] mb-14 leading-relaxed font-medium group-hover/wod:text-slate-200 transition-colors duration-1000 font-mono opacity-80 group-hover/wod:opacity-100">"{w.description}"</p>
+                            <h4 className="text-base font-black uppercase italic text-white mb-2 leading-tight line-clamp-2 tracking-tighter group-hover/wod:text-lime-400 transition-colors">{w.title}</h4>
+                            <p className="text-[11px] text-slate-500 italic line-clamp-4 mb-4 leading-relaxed font-medium">"{w.description}"</p>
                             
-                            <div className="flex gap-12 pt-12 border-t-2 border-slate-900/60 opacity-0 group-hover/wod:opacity-100 transition-all translate-y-10 group-hover/wod:translate-y-0 duration-[1000ms]">
+                            <div className="flex gap-4 pt-4 border-t border-slate-800/60 opacity-0 group-hover/wod:opacity-100 transition-all translate-y-4 group-hover/wod:translate-y-0">
                                <button 
                                  onClick={() => { setEditingWod(w); setNewWod(w as any); setShowWodForm(true); }} 
-                                 className="text-[14px] font-black uppercase text-slate-600 hover:text-white transition-all tracking-[0.5em] font-mono hover:scale-110 active:scale-95"
+                                 className="text-[10px] font-black uppercase text-slate-400 hover:text-white transition-all tracking-widest font-mono"
                                >
-                                 EDITAR_CFG
+                                 EDITAR
                                </button>
                                <button 
                                  onClick={() => handleWodDelete(w.id!)} 
-                                 className="text-[14px] font-black uppercase text-red-500/20 hover:text-red-500 transition-all tracking-[0.5em] font-mono hover:scale-110 active:scale-95"
+                                 className="text-[10px] font-black uppercase text-red-500/50 hover:text-red-500 transition-all tracking-widest font-mono"
                                >
-                                 PURGAR_WOD
+                                 BORRAR
                                </button>
                             </div>
                          </div>
@@ -1171,12 +1177,12 @@ const copyToClipboard = () => {
                        {dayWods.length === 0 && (
                           <button 
                             onClick={() => { setEditingWod(null); setNewWod({ title: '', description: '', type: '', date }); setShowWodForm(true); }}
-                            className="w-full h-full border-2 border-dashed border-slate-800/50 rounded-[32px] flex flex-col items-center justify-center gap-4 text-slate-800 hover:text-emerald-500 hover:border-emerald-700/60 transition-all duration-[1200ms] group/add p-10 bg-slate-950/30 hover:bg-slate-950/60 shadow-[inset_0_20px_50px_rgba(0,0,0,0.4)]"
+                            className="w-full h-full border-2 border-dashed border-slate-800/60 rounded-3xl flex flex-col items-center justify-center gap-3 text-slate-600 hover:text-emerald-500 hover:border-emerald-700/60 transition-all group/add p-6 bg-slate-950/30 hover:bg-slate-950/60"
                           >
-                             <div className="w-14 h-14 rounded-2xl bg-slate-900 border-2 border-slate-800 flex items-center justify-center group-hover/add:rotate-180 group-hover/add:scale-[1.3] transition-all duration-[1500ms] shadow-[0_40px_80px_rgba(0,0,0,1)] group-hover/add:bg-emerald-950 group-hover/add:border-emerald-700 group-hover/add:shadow-emerald-900/40">
+                             <div className="w-12 h-12 rounded-2xl bg-slate-900 border border-slate-800 flex items-center justify-center group-hover/add:rotate-90 group-hover/add:scale-110 transition-all duration-500 group-hover/add:bg-emerald-950 group-hover/add:border-emerald-700">
                                 <Plus className="w-6 h-6" />
                              </div>
-                             <span className="text-[10px] font-black uppercase italic tracking-widest leading-none opacity-30 group-hover/add:opacity-100 transition-all duration-1000 group-hover/add:tracking-[1em]">PLAN_WOD</span>
+                             <span className="text-[10px] font-black uppercase italic tracking-widest opacity-50 group-hover/add:opacity-100 transition-opacity">PLAN WOD</span>
                           </button>
                        )}
                     </div>
@@ -1501,24 +1507,21 @@ const copyToClipboard = () => {
       <AnimatePresence>
         {toast && (
           <motion.div 
-            initial={{ opacity: 0, y: 200, scale: 0.4 }} 
+            initial={{ opacity: 0, y: 50, scale: 0.9 }} 
             animate={{ opacity: 1, y: 0, scale: 1 }} 
-            exit={{ opacity: 0, y: 200, scale: 0.4 }} 
-            className="fixed bottom-48 left-4 right-4 z-[250] flex justify-center pointer-events-none"
+            exit={{ opacity: 0, y: 50, scale: 0.9 }} 
+            className="fixed bottom-24 left-4 right-4 z-[500] flex justify-center pointer-events-none"
           >
             <div className={cn(
-               "px-20 py-12 rounded-[60px] shadow-[0_60px_150px_rgba(0,0,0,1)] flex items-center gap-4 border-4 backdrop-blur-[100px] transition-all duration-[1500ms]",
-               toast.type === 'success' ? "bg-emerald-950/90 border-emerald-500/50 text-white shadow-emerald-500/10" : "bg-red-950/90 border-red-500/50 text-white shadow-red-500/10"
+               "px-6 py-4 rounded-3xl shadow-2xl flex items-center gap-4 border backdrop-blur-xl transition-all",
+               toast.type === 'success' ? "bg-emerald-950/95 border-emerald-500/50 text-white shadow-emerald-500/20" : "bg-red-950/95 border-red-500/50 text-white shadow-red-500/20"
             )}>
-               <div className={cn("p-8 rounded-full shadow-[0_0_60px_rgba(0,0,0,0.8)] transition-all duration-1000 rotate-12 hover:rotate-0", toast.type === 'success' ? "bg-lime-400 shadow-lime-400/40" : "bg-red-500 shadow-red-500/40")}>
-                  {toast.type === 'success' ? <CheckCircle2 className="w-12 h-12 text-black" /> : <ShieldAlert className="w-12 h-12 text-black" />}
+               <div className={cn("p-2 rounded-full", toast.type === 'success' ? "bg-lime-400" : "bg-red-500")}>
+                  {toast.type === 'success' ? <CheckCircle2 className="w-5 h-5 text-black" /> : <ShieldAlert className="w-5 h-5 text-black" />}
                </div>
-               <div className="flex flex-col space-y-5 text-left">
-                  <span className="text-sm font-black uppercase italic tracking-[0.4em] leading-none mb-2">{toast.message}</span>
-                  <div className="flex items-center gap-6">
-                     <div className="w-14 h-[4px] bg-white/20 rounded-full" />
-                     <span className="text-[12px] text-white/40 font-bold uppercase tracking-[1em] leading-none font-mono">System Intel Protocol v3.0_OK</span>
-                  </div>
+               <div className="flex flex-col text-left">
+                  <span className="text-sm font-black uppercase italic tracking-widest leading-none mb-1">{toast.message}</span>
+                  <span className="text-[8px] text-white/50 font-bold uppercase tracking-widest leading-none font-mono">System Protocol_OK</span>
                </div>
             </div>
           </motion.div>
