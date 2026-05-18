@@ -712,7 +712,7 @@ const copyToClipboard = () => {
                     <motion.div 
                       initial={{ opacity: 0, x: -60 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: idx * 0.05 }} 
                       key={a.uid} 
-                      className="bg-slate-950/90 p-14 rounded-[64px] border-2 border-slate-900 flex flex-col xl:flex-row xl:items-center justify-between gap-20 hover:border-emerald-900/40 hover:bg-slate-900 transition-all group shadow-3xl relative overflow-hidden"
+                      className="bg-slate-900 p-8 md:p-12 rounded-[40px] w-full max-w-3xl max-h-[90vh] overflow-y-auto border-4 border-slate-800 shadow-2xl relative"
                     >
                        <div className="flex items-center gap-14 min-w-[550px]">
                           <div className="relative group/avatar">
@@ -790,7 +790,7 @@ const copyToClipboard = () => {
                   <div className="space-y-8">
                     <div className="flex items-center gap-6">
                        <div className="w-3 h-12 bg-emerald-500 rounded-full shadow-[0_0_30px_rgba(16,185,129,0.8)]" />
-                       <h3 className="text-7xl font-black italic uppercase tracking-tighter text-white leading-none mb-0">Athlete <span className="text-emerald-500 italic underline decoration-emerald-950/50 decoration-[16px] underline-offset-[16px]">Database</span></h3>
+                       <h3 className="text-4xl font-black italic uppercase tracking-tighter text-white leading-none mb-0">Athlete <span className="text-emerald-500 italic underline decoration-emerald-950/50 decoration-[16px] underline-offset-[16px]">Database</span></h3>
                     </div>
                     <p className="text-[15px] text-slate-600 font-bold uppercase tracking-widest mt-10 max-w-xl italic leading-relaxed opacity-80">
                        Repositorio operativo central de Jungle HP. Consulta de jerarquías de acceso, métricas de rendimiento analítico y protocolos de feedback.
@@ -868,7 +868,7 @@ const copyToClipboard = () => {
                      <div className="flex-1 space-y-14">
                         <div className="space-y-6">
                            <div className="flex flex-wrap items-center justify-center lg:justify-start gap-10">
-                              <h3 className="text-9xl font-black italic uppercase tracking-tighter leading-[0.65] mb-0 group-hover:text-emerald-400 transition-colors duration-1000 shadow-emerald-500/20">{selectedAthlete.displayName}</h3>
+                              <h3 className="text-5xl md:text-6xl font-black italic uppercase tracking-tighter leading-[0.65] mb-0 group-hover:text-emerald-400 transition-colors duration-1000 shadow-emerald-500/20">{selectedAthlete.displayName}</h3>
                               <div className="bg-slate-950/80 px-8 py-4 rounded-3xl border-4 border-slate-800 text-[16px] font-black uppercase text-slate-700 italic tracking-[0.5em] leading-none shadow-[0_30px_60px_rgba(0,0,0,1)] hover:scale-110 transition-transform">ELITE RX_DIV</div>
                            </div>
                            <p className="text-[18px] text-slate-600 font-bold uppercase tracking-widest italic leading-none max-w-4xl mx-auto lg:mx-0 mt-8 opacity-60">
@@ -1270,7 +1270,7 @@ const copyToClipboard = () => {
                        </div>
                        <p className="text-amber-500 text-[18px] font-black uppercase tracking-[1em] italic leading-none">Security Privilege Area</p>
                     </div>
-                    <h3 className="text-9xl font-black italic uppercase text-white tracking-tighter leading-none flex items-center gap-12">
+                    <h3 className="text-5xl md:text-6xl font-black italic uppercase text-white tracking-tighter leading-none flex items-center gap-12">
                        Box <span className="text-amber-500 underline decoration-amber-950/60 decoration-[20px] underline-offset-[20px] italic">Admin Hub</span>
                     </h3>
                     <p className="text-[18px] text-slate-600 font-bold uppercase tracking-widest mt-16 max-w-4xl leading-relaxed italic opacity-80">
@@ -1420,7 +1420,7 @@ const copyToClipboard = () => {
                 </button>
                 
                 <div className="text-center mb-32 space-y-10 relative z-10">
-                   <h3 className="text-9xl font-black italic uppercase text-white tracking-tighter leading-none mb-0 group">
+                   <h3 className="text-5xl md:text-6xl font-black italic uppercase text-white tracking-tighter leading-none mb-0 group">
                       {editingWod ? 'Update' : 'Schedule'} <span className="text-emerald-500 italic">Workout</span>
                    </h3>
                    <div className="flex items-center justify-center gap-8">
