@@ -30,15 +30,12 @@ export const generateCoachRecommendation = async (wellnessData: any, lastSession
       4. Si está óptimo, exigile que vaya pesado.
     `;
 
-    // ACÁ ESTÁ EL CAMBIO PARA LA VERSIÓN NUEVA (0.21.0)
     const result = await model.generateContent(prompt);
-    
-    // Leemos el texto directamente de result.response
-    const text = result.response.text();
-    return text;
+    // IMPORTANTE: Así se extrae el texto en la versión 0.21.0
+    return result.response.text(); 
 
   } catch (error) {
-    console.error("Error al conectar con el Coach Virtual (Gemini):", error);
+    console.error("Error al conectar con el Coach Virtual:", error);
     return "🔥 EL RADAR ESTÁ INTERFERIDO. ENFOCATE EN LA TÉCNICA Y ESCUCHÁ A TU CUERPO HOY.";
   }
 };
