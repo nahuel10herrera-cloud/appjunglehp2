@@ -30,8 +30,8 @@ export default function Shell({ children, activeTab, onTabChange, viewMode, onVi
   ];
 
   const [showRMCalculator, setShowRMCalculator] = useState(false);
-const [rmWeight, setRmWeight] = useState<number>(0);
-const [shouldRound, setShouldRound] = useState(false);
+  const [rmWeight, setRmWeight] = useState<string | number>('');
+  const [shouldRound, setShouldRound] = useState(false);
   
   return (
     <div className="min-h-screen bg-slate-950 flex flex-col md:flex-row font-sans text-slate-100 pb-20 md:pb-0">
@@ -123,16 +123,18 @@ const [shouldRound, setShouldRound] = useState(false);
 
         <div className="mt-auto p-8 border-t border-slate-800 bg-slate-950/20">
           <button 
+    onClick={() => setShowRMCalculator(true)} 
+    className="w-full flex items-center gap-3 px-2 py-2 text-lime-400 hover:text-white transition-colors text-[10px] font-black uppercase tracking-[0.2em] italic border border-lime-400/20 rounded-xl mb-2"
+  >
+    <Calculator className="w-4 h-4" /> Calculadora RM
+  </button>
+          <button 
             onClick={() => logOut()}
             className="w-full flex items-center gap-3 px-2 py-2 text-slate-500 hover:text-lime-400 transition-colors text-[10px] font-black uppercase tracking-[0.2em] italic"
           >
             <LogOut className="w-4 h-4" />
             Cerrar Sesión
           </button>
-          <button onClick={() => setShowRMCalculator(true)} className="text-slate-500 hover:text-lime-400">
-  <Calculator className="w-6 h-6" />
-  <span className="text-[10px]">RM Calc</span>
-</button>
         </div>
       </nav>
 
