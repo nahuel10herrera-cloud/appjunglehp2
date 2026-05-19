@@ -734,32 +734,52 @@ const payload = {
                 </div>
 
                 {/* Status Bar */}
-                <div className="bg-emerald-700/10 border border-emerald-500/20 rounded-[32px] p-6 flex flex-col sm:flex-row sm:items-center justify-between shadow-xl gap-4">
+                <div className="bg-emerald-700/10 border border-emerald-500/20 rounded-[32px] p-6 flex items-center justify-between shadow-xl">
                   <div>
                     <p className="text-[10px] font-black uppercase text-emerald-500 tracking-[0.2em] mb-1 italic">Nivel de Readiness</p>
                     <h4 className="text-2xl font-black italic uppercase tracking-tighter text-white">
                       {readiness?.label || 'Pendiente Check-in'}
                     </h4>
                   </div>
-                  <div className="flex gap-3 w-full sm:w-auto">
+                  {!wellness && (
                     <button 
-                      onClick={() => setShowRMCalculator(true)}
-                      className="flex-1 sm:flex-none bg-zinc-900 border border-zinc-700 text-white px-5 py-3 rounded-2xl text-[10px] font-black uppercase tracking-widest shadow-xl active:scale-95 transition-all hover:bg-zinc-800 flex items-center justify-center gap-2"
+                      onClick={() => setShowWellnessForm(true)}
+                      className="bg-emerald-600 text-white px-6 py-3 rounded-2xl text-[10px] font-black uppercase tracking-widest shadow-xl shadow-emerald-700/20 active:scale-95 transition-all hover:bg-emerald-500"
                     >
-                      <Calculator className="w-4 h-4 text-lime-400" />
-                      RM Calc
+                      Realizar Check-in
                     </button>
-                    {!wellness && (
-                      <button 
-                        onClick={() => setShowWellnessForm(true)}
-                        className="flex-1 sm:flex-none bg-emerald-600 text-white px-5 py-3 rounded-2xl text-[10px] font-black uppercase tracking-widest shadow-xl shadow-emerald-700/20 active:scale-95 transition-all hover:bg-emerald-500 flex items-center justify-center gap-2"
-                      >
-                        <Activity className="w-4 h-4" />
-                        Check-in
-                      </button>
-                    )}
-                  </div>
+                  )}
                 </div>
+
+                {/* AI & Feedback Grid */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                   <div className="bg-zinc-900 border border-zinc-800 rounded-[32px] p-6 shadow-xl relative overflow-hidden">
+                      <div className="absolute top-0 right-0 p-4 opacity-5">
+                        <Zap className="w-12 h-12 text-lime-400" />
+                      </div>
+                      <div className="relative z-10">
+                        <div className="flex items-center justify-between mb-4">
+                          <h3 className="text-[10px] font-black italic uppercase tracking-[0.2em] flex items-center gap-2 text-zinc-500">
+                            <Zap className="w-3.5 h-3.5 text-lime-400" />
+                            Coach Advisor (AI)
+                          </h3>
+                        </div>
+                        {aiRecommendation ? (
+                          <div className="bg-zinc-950 p-4 rounded-2xl border border-emerald-500/20 relative group">
+                            <p className="text-xs text-zinc-300 leading-relaxed italic">"{aiRecommendation}"</p>
+                            <button onClick={() => setAiRecommendation(null)} className="absolute -top-2 -right-2 w-6 h-6 bg-zinc-800 rounded-full flex items-center justify-center text-[10px] border border-zinc-700 opacity-0 group-hover:opacity-100 transition-opacity">×</button>
+                          </div>
+                        ) : (
+                          <button 
+                            onClick={getAiRecommendation}
+                            disabled={loadingAi || !wellness}
+                            className="w-full py-6 bg-zinc-950 rounded-2xl border border-dashed border-zinc-800 text-zinc-600 text-[10px] font-black uppercase tracking-widest hover:border-emerald-500/30 hover:text-emerald-500 transition-all disabled:opacity-50"
+                          >
+                            {loadingAi ? 'Sincronizando...' : !wellness ? 'Completa Check-in primero' : 'Analizar Estado'}
+                          </button>
+                        )}
+                      </div>
+                    </div>
                     <div className="bg-zinc-900 border border-zinc-800 rounded-[32px] p-6 shadow-xl text-white">
                       <div className="flex items-center justify-between mb-4">
                         <h3 className="text-[10px] font-black italic uppercase tracking-[0.2em] flex items-center gap-2 text-zinc-500">
