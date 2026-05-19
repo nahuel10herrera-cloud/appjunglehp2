@@ -8,8 +8,8 @@ import { motion, AnimatePresence } from 'motion/react';
 import { Star, MessageSquare, ChevronRight, CheckCircle2, Activity, Zap, Info, Clock, Weight, Repeat, TrendingUp, Dumbbell, Trophy, Medal, History as HistoryIcon, ClipboardList, Pencil, Check, Calculator, X, Plus, ArrowUpRight, BarChart3 } from 'lucide-react';
 import { cn, formatDate, getTodayDate, parseScoreToNumber } from '@/src/lib/utils';
 import { generateCoachRecommendation } from '@/src/services/gemini';
-
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
+import { RMCalculator from '@/src/components/RMCalculator';
 
 interface AthleteViewProps {
   activeTab?: string;
