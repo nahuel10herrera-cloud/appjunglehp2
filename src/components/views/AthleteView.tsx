@@ -9,7 +9,6 @@ import { Star, MessageSquare, ChevronRight, CheckCircle2, Activity, Zap, Info, C
 import { cn, formatDate, getTodayDate, parseScoreToNumber } from '@/src/lib/utils';
 import { generateCoachRecommendation } from '@/src/services/gemini';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
-import { RMCalculator from '@/src/components/RMCalculator';
 
 interface AthleteViewProps {
   activeTab?: string;
