@@ -1576,6 +1576,7 @@ const payload = {
           </motion.div>
         )}
       </AnimatePresence>
+      <AnimatePresence>
   {showRMCalculator && (
     <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm">
       <div className="bg-slate-900 p-6 rounded-3xl w-full max-w-sm border border-slate-800 relative">
