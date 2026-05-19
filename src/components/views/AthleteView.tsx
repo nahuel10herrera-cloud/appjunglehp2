@@ -46,7 +46,6 @@ export default function AthleteView({ activeTab = 'home' }: AthleteViewProps) {
 
   const isTimeBased = (ex: string | null) => ex && ['Fran', 'ISABEL', 'GRACE'].includes(ex);
 
-  // RM Calculator states
   const [showRMCalculator, setShowRMCalculator] = useState(false);
   const [rmWeight, setRmWeight] = useState('');
   const [shouldRound, setShouldRound] = useState(true);
@@ -575,7 +574,7 @@ const payload = {
             <div className="h-48 w-full">
               <ResponsiveContainer width="100%" height="100%">
                 <LineChart data={wellnessHistory}>
-                  <CartesianGrid strokeDasharray="3 3" stroke="#27272a" vertical={false} />
+                  <CartesianGrid strokearray="3 3" stroke="#27272a" vertical={false} />
                   <XAxis 
                     dataKey="date" 
                     tick={{ fontSize: 7, fontWeight: 900, fill: '#52525b' }} 
@@ -683,7 +682,7 @@ const payload = {
                       </motion.div>
                     ))
                   ) : (
-                    <div className="py-16 text-center bg-zinc-900/50 rounded-[40px] border border-dashed border-zinc-800 translate-y-0">
+                    <div className="py-16 text-center bg-zinc-900/50 rounded-[40px] border border-ed border-zinc-800 translate-y-0">
                       <p className="text-zinc-400 font-black uppercase text-xl tracking-widest italic mb-2">Día de descanso activo</p>
                       <p className="text-emerald-500 font-mono text-[9px] uppercase tracking-[0.3em] font-black italic">Muévete lento, recupera fuerte.</p>
                     </div>
@@ -731,6 +730,14 @@ const payload = {
                     </motion.div>
                   ))}
                 </div>
+
+                <button 
+  onClick={() => setShowRMCalculator(true)}
+  className="mt-6 w-full bg-slate-900 border border-slate-800 p-4 rounded-2xl flex items-center justify-between text-lime-400 font-black uppercase italic tracking-widest hover:border-lime-500/50 transition-all"
+>
+  <span>Calculadora de RM</span>
+  <Calculator className="w-5 h-5" />
+</button>
 
                 {/* Status Bar */}
                 <div className="bg-emerald-700/10 border border-emerald-500/20 rounded-[32px] p-6 flex items-center justify-between shadow-xl">
@@ -1569,6 +1576,21 @@ const payload = {
           </motion.div>
         )}
       </AnimatePresence>
+  {showRMCalculator && (
+    <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm">
+      <div className="bg-slate-900 p-6 rounded-3xl w-full max-w-sm border border-slate-800 relative">
+        <button onClick={() => setShowRMCalculator(false)} className="absolute top-4 right-4 text-slate-500"><X /></button>
+        <h3 className="font-black italic uppercase mb-4">Calculadora RM</h3>
+        <input type="number" value={rmWeight} onChange={(e) => setRmWeight(e.target.value)} className="w-full bg-slate-950 p-4 rounded-xl text-center text-2xl font-black text-lime-400 mb-4" placeholder="Peso (kg)"/>
+        <div className="grid grid-cols-2 gap-2 text-[10px]">
+          {[95, 90, 85, 80, 75, 70].map(pct => (
+            <div key={pct} className="bg-slate-800 p-2 text-center rounded">{pct}%: {((Number(rmWeight) * pct) / 100).toFixed(1)}kg</div>
+          ))}
+        </div>
+      </div>
+    </motion.div>
+  )}
+</AnimatePresence>
     </div>
   );
 }
