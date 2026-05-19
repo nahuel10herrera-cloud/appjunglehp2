@@ -41,20 +41,22 @@ const [shouldRound, setShouldRound] = useState(false);
           <Dumbbell className="text-lime-400 w-5 h-5" />
         </div>
         
-        <h1 className="font-black text-xl leading-tight uppercase tracking-tighter italic absolute left-1/2 -translate-x-1/2">Jungle <span className="text-lime-400">HP</span></h1>
+        <h1 className="font-black text-xl italic uppercase tracking-tighter absolute left-1/2 -translate-x-1/2">
+          Jungle <span className="text-lime-400">HP</span>
+        </h1>
         
         <div className="flex items-center gap-2">
-          {profile?.role === 'coach' && onViewModeChange && (
-            <button 
-              onClick={() => onViewModeChange(viewMode === 'coach' ? 'athlete' : 'coach')}
-              className="px-3 py-1.5 rounded-lg bg-emerald-700 text-white text-[8px] font-black uppercase tracking-widest shadow-lg shadow-emerald-700/20 hover:bg-emerald-600 transition-colors"
-            >
-              {viewMode === 'coach' ? 'Ver Atleta' : 'Ver Coach'}
-            </button>
-          )}
+          {/* Botón RM Calc para móvil - VISIBLE SIEMPRE */}
+          <button 
+            onClick={() => setShowRMCalculator(true)}
+            className="w-8 h-8 rounded-lg bg-emerald-700/20 text-lime-400 flex items-center justify-center border border-emerald-700/50"
+          >
+            <Calculator className="w-4 h-4" />
+          </button>
+
           <button 
             onClick={() => logOut()}
-            className="w-8 h-8 rounded-lg bg-slate-900 border border-slate-800 flex items-center justify-center text-slate-500 hover:text-red-400 transition-colors"
+            className="w-8 h-8 rounded-lg bg-slate-900 border border-slate-800 flex items-center justify-center text-slate-500"
           >
             <LogOut className="w-4 h-4" />
           </button>
