@@ -1,8 +1,9 @@
-import React from 'react';
-import { useAuth } from '../auth/AuthProvider';
+import React, { useState } from 'react';
+import { useAuth } from '@/src/components/auth/AuthGuard';
 import { logOut } from '@/src/lib/firebase';
-import { Trophy, Dumbbell, ClipboardList, TrendingUp, LogOut, LayoutDashboard, Calendar, Activity, Users } from 'lucide-react';
+import { Trophy, Dumbbell, ClipboardList, TrendingUp, LogOut, LayoutDashboard, Calendar, Activity, Users, Calculator, X } from 'lucide-react';
 import { cn } from '@/src/lib/utils';
+import { motion, AnimatePresence } from 'motion/react';
 
 interface ShellProps {
   children: React.ReactNode;
@@ -14,6 +15,9 @@ interface ShellProps {
 
 export default function Shell({ children, activeTab, onTabChange, viewMode, onViewModeChange }: ShellProps) {
   const { profile } = useAuth();
+  const [showRMCalculator, setShowRMCalculator] = useState(false);
+  const [rmWeight, setRmWeight] = useState('');
+  const [shouldRound, setShouldRound] = useState(true);
 
   const navItems = (viewMode || profile?.role) === 'coach' ? [
     { id: 'dashboard', label: 'Inicio', icon: LayoutDashboard },
@@ -39,6 +43,13 @@ export default function Shell({ children, activeTab, onTabChange, viewMode, onVi
         <h1 className="font-black text-xl leading-tight uppercase tracking-tighter italic absolute left-1/2 -translate-x-1/2">Jungle <span className="text-lime-400">HP</span></h1>
         
         <div className="flex items-center gap-2">
+          <button 
+            onClick={() => setShowRMCalculator(true)}
+            className="w-8 h-8 rounded-lg bg-slate-900 border border-slate-800 flex items-center justify-center text-slate-500 hover:text-emerald-500 transition-colors"
+            title="Calculador RM"
+          >
+            <Calculator className="w-4 h-4" />
+          </button>
           {profile?.role === 'coach' && onViewModeChange && (
             <button 
               onClick={() => onViewModeChange(viewMode === 'coach' ? 'athlete' : 'coach')}
@@ -114,7 +125,14 @@ export default function Shell({ children, activeTab, onTabChange, viewMode, onVi
           </div>
         </div>
 
-        <div className="mt-auto p-8 border-t border-slate-800 bg-slate-950/20">
+        <div className="mt-auto p-8 border-t border-slate-800 bg-slate-950/20 space-y-2">
+          <button 
+            onClick={() => setShowRMCalculator(true)}
+            className="w-full flex items-center gap-3 px-2 py-2 text-slate-500 hover:text-emerald-500 transition-colors text-[10px] font-black uppercase tracking-[0.2em] italic"
+          >
+            <Calculator className="w-4 h-4" />
+            Calculador RM
+          </button>
           <button 
             onClick={() => logOut()}
             className="w-full flex items-center gap-3 px-2 py-2 text-slate-500 hover:text-lime-400 transition-colors text-[10px] font-black uppercase tracking-[0.2em] italic"
@@ -154,6 +172,7 @@ export default function Shell({ children, activeTab, onTabChange, viewMode, onVi
           {children}
         </div>
       </main>
+
       <AnimatePresence>
         {showRMCalculator && (
           <motion.div 
@@ -251,4 +270,3 @@ export default function Shell({ children, activeTab, onTabChange, viewMode, onVi
     </div>
   );
 }
-
