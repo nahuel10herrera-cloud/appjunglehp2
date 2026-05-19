@@ -1569,7 +1569,81 @@ const payload = {
             </motion.div>
           </motion.div>
         )}
+      <AnimatePresence>
+        {showRMCalculator && (
+          <motion.div 
+            initial={{ opacity: 0 }} 
+            animate={{ opacity: 1 }} 
+            exit={{ opacity: 0 }} 
+            className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-slate-950/90 backdrop-blur-md"
+          >
+            <motion.div 
+              initial={{ scale: 0.95, y: 20 }} 
+              animate={{ scale: 1, y: 0 }} 
+              className="bg-slate-900 p-8 rounded-[32px] w-full max-w-sm border-2 border-slate-800 shadow-2xl relative"
+            >
+              <button 
+                onClick={() => setShowRMCalculator(false)} 
+                className="absolute top-4 right-4 text-slate-500 hover:text-white bg-slate-950 p-2 rounded-full border border-slate-800"
+              >
+                <X className="w-4 h-4" />
+              </button>
+              
+              <div className="flex items-center gap-3 mb-6">
+                <div className="bg-lime-400 p-2 rounded-xl text-black shadow-lg">
+                  <Calculator className="w-5 h-5" />
+                </div>
+                <h3 className="text-2xl font-black italic uppercase text-white tracking-tighter">RM <span className="text-lime-400">Calc</span></h3>
+              </div>
+
+              <div className="space-y-4 mb-6">
+                <div>
+                  <label className="text-[10px] font-black uppercase text-slate-500 mb-2 block italic tracking-widest">Peso Máximo (1RM) en KG</label>
+                  <input 
+                    type="number"
+                    placeholder="Ej: 100"
+                    value={rmWeight || ''}
+                    onChange={(e) => setRmWeight(Number(e.target.value))}
+                    className="w-full bg-slate-950 border-2 border-slate-800 rounded-2xl p-4 text-2xl font-black italic text-white outline-none focus:border-lime-400 transition-colors text-center"
+                  />
+                </div>
+                
+                <label className="flex items-center justify-center gap-3 cursor-pointer group bg-slate-950 p-3 rounded-xl border border-slate-800">
+                   <div className={cn("w-5 h-5 rounded-md border flex items-center justify-center transition-all", shouldRound ? "bg-lime-400 border-lime-400" : "bg-slate-900 border-slate-700")}>
+                      {shouldRound && <Check className="w-3 h-3 text-black" />}
+                   </div>
+                   <span className="text-[10px] font-black uppercase text-slate-400 tracking-widest group-hover:text-white transition-colors">Redondear a 2.5kg (Discos Reales)</span>
+                   <input 
+                      type="checkbox" 
+                      className="hidden" 
+                      checked={shouldRound} 
+                      onChange={(e) => setShouldRound(e.target.checked)} 
+                   />
+                </label>
+              </div>
+
+              <div className="grid grid-cols-2 gap-3 max-h-[40vh] overflow-y-auto pr-2 scrollbar-hide">
+                {[95, 90, 85, 80, 75, 70, 65, 60, 55, 50, 45, 40].map(percent => {
+                  let weight = rmWeight ? (rmWeight * percent) / 100 : 0;
+                  if (shouldRound) {
+                     weight = Math.round(weight / 2.5) * 2.5;
+                  }
+                  return (
+                    <div key={percent} className="bg-slate-950 p-3 rounded-2xl border border-slate-800 flex justify-between items-center group hover:border-lime-400 transition-colors">
+                       <span className="text-lime-400 font-black italic text-lg">{percent}%</span>
+                       <span className="text-white font-mono font-bold text-lg">{weight > 0 ? weight : '-'} <span className="text-[9px] text-slate-500">kg</span></span>
+                    </div>
+                  )
+                })}
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
       </AnimatePresence>
+
+    </div>
+  );
+}
     </div>
   );
 }
