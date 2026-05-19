@@ -63,80 +63,27 @@ export default function Shell({ children, activeTab, onTabChange, viewMode, onVi
         </div>
       </header>
 
-      {/* Desktop Sidebar */}
-      <nav className="hidden md:flex w-64 bg-slate-900 border-r border-slate-800 flex-col sticky top-0 h-screen">
-        <div className="p-8">
-          <div className="flex items-center gap-3 mb-10">
-            <div className="w-10 h-10 bg-emerald-700 rounded-xl flex items-center justify-center shadow-lg shadow-emerald-700/20">
-              <Dumbbell className="text-lime-400 w-6 h-6" />
-            </div>
-            <div>
-              <h1 className="font-black text-xl leading-tight uppercase tracking-tighter italic">Jungle <span className="text-lime-400">HP</span></h1>
-              <p className="text-[10px] text-emerald-500 font-mono uppercase tracking-[0.2em]">{profile?.role}</p>
-            </div>
-          </div>
-
-          {profile?.role === 'coach' && onViewModeChange && (
-            <div className="mb-10 bg-slate-950 rounded-2xl p-4 border border-slate-800">
-               <p className="text-[9px] text-slate-500 font-black uppercase tracking-widest mb-3 italic text-center">Modo de Vista</p>
-               <div className="flex gap-2">
-                 <button 
-                   onClick={() => onViewModeChange('coach')}
-                   className={cn(
-                     "flex-1 py-2 rounded-xl text-[9px] font-black uppercase tracking-widest transition-all",
-                     viewMode === 'coach' ? "bg-emerald-700 text-white" : "bg-slate-900 text-slate-500"
-                   )}
-                 >
-                   Coach
-                 </button>
-                 <button 
-                   onClick={() => onViewModeChange('athlete')}
-                   className={cn(
-                     "flex-1 py-2 rounded-xl text-[9px] font-black uppercase tracking-widest transition-all",
-                     viewMode === 'athlete' ? "bg-emerald-700 text-white" : "bg-slate-900 text-slate-500"
-                   )}
-                 >
-                   Atleta
-                 </button>
-               </div>
-            </div>
-          )}
-
-          <div className="space-y-4">
+      {/* Sidebar Nav con Botones Integrados */}
+        <div className="space-y-4">
+            {/* Selector de Modo (Si es Coach) */}
+            {profile?.role === 'coach' && onViewModeChange && (
+               <button onClick={() => onViewModeChange(viewMode === 'coach' ? 'athlete' : 'coach')} className="w-full flex items-center gap-3 px-6 py-3 text-[9px] font-black uppercase text-slate-500 hover:text-white">
+                 <Repeat className="w-4 h-4" /> {viewMode === 'coach' ? 'Modo Atleta' : 'Modo Coach'}
+               </button>
+            )}
+            
+            {/* Navegación Original */}
             {navItems.map((item) => (
-              <button
-                key={item.id}
-                onClick={() => onTabChange(item.id)}
-                className={cn(
-                  "w-full flex items-center gap-4 px-6 py-4 rounded-2xl text-[10px] font-black uppercase tracking-widest italic transition-all group",
-                  activeTab === item.id 
-                    ? "bg-emerald-700 text-white shadow-lg shadow-emerald-700/20" 
-                    : "text-slate-500 hover:bg-slate-800 hover:text-white"
-                )}
-              >
-                <item.icon className={cn("w-5 h-5 transition-colors", activeTab === item.id ? "text-lime-400" : "text-emerald-500 group-hover:text-lime-400")} />
-                {item.label}
+              <button key={item.id} onClick={() => onTabChange(item.id)} className={cn("w-full flex items-center gap-4 px-6 py-4 rounded-2xl text-[10px] font-black uppercase tracking-widest italic transition-all", activeTab === item.id ? "bg-emerald-700 text-white" : "text-slate-500")}>
+                <item.icon className="w-5 h-5" /> {item.label}
               </button>
             ))}
-          </div>
-        </div>
 
-        <div className="mt-auto p-8 border-t border-slate-800 bg-slate-950/20">
-          <button 
-    onClick={() => setShowRMCalculator(true)} 
-    className="w-full flex items-center gap-3 px-2 py-2 text-lime-400 hover:text-white transition-colors text-[10px] font-black uppercase tracking-[0.2em] italic border border-lime-400/20 rounded-xl mb-2"
-  >
-    <Calculator className="w-4 h-4" /> Calculadora RM
-  </button>
-          <button 
-            onClick={() => logOut()}
-            className="w-full flex items-center gap-3 px-2 py-2 text-slate-500 hover:text-lime-400 transition-colors text-[10px] font-black uppercase tracking-[0.2em] italic"
-          >
-            <LogOut className="w-4 h-4" />
-            Cerrar Sesión
-          </button>
+            {/* Calculadora RM Integrada */}
+            <button onClick={() => setShowRMCalculator(true)} className="w-full flex items-center gap-4 px-6 py-4 text-lime-400 text-[10px] font-black uppercase tracking-widest italic hover:bg-slate-800 rounded-2xl">
+              <Calculator className="w-5 h-5" /> Calc RM
+            </button>
         </div>
-      </nav>
 
       {/* Mobile Bottom Navigation */}
       <nav className="md:hidden fixed bottom-0 left-0 right-0 bg-slate-900/90 backdrop-blur-2xl border-t border-slate-800 px-6 py-3 flex items-center justify-around z-50">
